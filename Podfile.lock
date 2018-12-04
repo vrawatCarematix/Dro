@@ -1,0 +1,47 @@
+PODS:
+  - Alamofire (4.7.2)
+  - Crashlytics (3.10.1):
+    - Fabric (~> 1.7.5)
+  - DropDown (2.3.2)
+  - Fabric (1.7.6)
+  - FoldingCell (3.0.6)
+  - IQKeyboardManagerSwift (6.0.2)
+  - LGSideMenuController (2.1.1)
+  - SDWebImage (4.3.3):
+    - SDWebImage/Core (= 4.3.3)
+  - SDWebImage/Core (4.3.3)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.7)
+  - Crashlytics
+  - DropDown
+  - Fabric
+  - FoldingCell
+  - IQKeyboardManagerSwift
+  - LGSideMenuController
+  - SDWebImage (~> 4.0)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Alamofire
+    - Crashlytics
+    - DropDown
+    - Fabric
+    - FoldingCell
+    - IQKeyboardManagerSwift
+    - LGSideMenuController
+    - SDWebImage
+
+SPEC CHECKSUMS:
+  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
+  DropDown: 7f87abecc28f9b4edad810fe1211c5c018c257e5
+  Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
+  FoldingCell: 4848ec8a2056d5751bfb710df14521fc64d48ad7
+  IQKeyboardManagerSwift: 59d4b0e140bc546c3c76ae5bb35b3dafd10b8172
+  LGSideMenuController: ae40c80983ab8b8801c7cef0a6804d43aaa72d45
+  SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
+
+PODFILE CHECKSUM: 3875446926ff8b157f5edc8e3669ff06e678c34f
+
+COCOAPODS: 1.5.0

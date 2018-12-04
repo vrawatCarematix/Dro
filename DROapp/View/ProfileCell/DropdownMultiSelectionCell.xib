@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Display-Regular.otf">
+            <string>SFProDisplay-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DropdownMultiSelectionCell" rowHeight="50" id="yC2-wR-bbu" customClass="DropdownMultiSelectionCell" customModule="DROapp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yC2-wR-bbu" id="xna-tD-atD">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J3u-wq-22j">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tickOptionOff" translatesAutoresizingMaskIntoConstraints="NO" id="Fi6-Cy-IJJ">
+                                <rect key="frame" x="35" y="15" width="16" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Fi6-Cy-IJJ" secondAttribute="height" id="yIc-YO-LbQ"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a4k-a6-EXL">
+                                <rect key="frame" x="66" y="15" width="239" height="20.5"/>
+                                <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="15"/>
+                                <color key="textColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RjJ-K4-FRb">
+                                <rect key="frame" x="0.0" y="-0.5" width="320" height="50"/>
+                                <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="16"/>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bI2-mW-H0h">
+                                <rect key="frame" x="0.0" y="49" width="320" height="1"/>
+                                <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="WkF-ej-7Nw"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="RjJ-K4-FRb" secondAttribute="bottom" id="52e-bZ-dBP"/>
+                            <constraint firstAttribute="trailing" secondItem="RjJ-K4-FRb" secondAttribute="trailing" id="DXC-Yf-r89"/>
+                            <constraint firstAttribute="trailing" secondItem="bI2-mW-H0h" secondAttribute="trailing" id="Lmy-4n-6DA"/>
+                            <constraint firstAttribute="trailing" secondItem="a4k-a6-EXL" secondAttribute="trailing" constant="15" id="NO3-VE-S2e"/>
+                            <constraint firstAttribute="bottom" secondItem="a4k-a6-EXL" secondAttribute="bottom" constant="14.5" id="ON3-6I-QPt"/>
+                            <constraint firstItem="RjJ-K4-FRb" firstAttribute="leading" secondItem="J3u-wq-22j" secondAttribute="leading" id="Vll-C4-kti"/>
+                            <constraint firstItem="Fi6-Cy-IJJ" firstAttribute="top" secondItem="J3u-wq-22j" secondAttribute="top" constant="15" id="Xr5-Zj-S5a"/>
+                            <constraint firstAttribute="bottom" secondItem="bI2-mW-H0h" secondAttribute="bottom" id="f8c-SW-4MW"/>
+                            <constraint firstItem="a4k-a6-EXL" firstAttribute="top" secondItem="J3u-wq-22j" secondAttribute="top" constant="15" id="lLE-MY-AWx"/>
+                            <constraint firstItem="a4k-a6-EXL" firstAttribute="leading" secondItem="Fi6-Cy-IJJ" secondAttribute="trailing" constant="15" id="m7k-fs-InC"/>
+                            <constraint firstItem="Fi6-Cy-IJJ" firstAttribute="width" secondItem="J3u-wq-22j" secondAttribute="width" multiplier="16:320" id="qst-Hh-NNx"/>
+                            <constraint firstItem="Fi6-Cy-IJJ" firstAttribute="leading" secondItem="J3u-wq-22j" secondAttribute="leading" constant="35" id="t5s-5n-4Oc"/>
+                            <constraint firstItem="RjJ-K4-FRb" firstAttribute="top" secondItem="J3u-wq-22j" secondAttribute="top" id="xaA-AW-fgd"/>
+                            <constraint firstItem="bI2-mW-H0h" firstAttribute="leading" secondItem="J3u-wq-22j" secondAttribute="leading" id="zWE-EQ-HfR"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="J3u-wq-22j" firstAttribute="leading" secondItem="xna-tD-atD" secondAttribute="leading" id="3Am-VY-tTm"/>
+                    <constraint firstAttribute="bottom" secondItem="J3u-wq-22j" secondAttribute="bottom" id="867-tb-qyD"/>
+                    <constraint firstAttribute="trailing" secondItem="J3u-wq-22j" secondAttribute="trailing" id="LoB-FN-HV7"/>
+                    <constraint firstItem="J3u-wq-22j" firstAttribute="top" secondItem="xna-tD-atD" secondAttribute="top" id="nvM-4p-g9N"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="imgSelection" destination="Fi6-Cy-IJJ" id="OBX-KA-K5z"/>
+                <outlet property="labelData" destination="a4k-a6-EXL" id="IHJ-Of-BpP"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="tickOptionOff" width="256" height="256"/>
+    </resources>
+</document>

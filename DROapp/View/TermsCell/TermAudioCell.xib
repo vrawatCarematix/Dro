@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TermAudioCell" rowHeight="46" id="Rmi-FJ-EdJ" customClass="TermAudioCell" customModule="DROapp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="288" height="46"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Rmi-FJ-EdJ" id="zir-uw-7Dd">
+                <rect key="frame" x="0.0" y="0.0" width="288" height="45.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jFe-DI-PWC">
+                        <rect key="frame" x="15" y="5" width="258" height="35.5"/>
+                        <subviews>
+                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="x35-ho-ETF">
+                                <rect key="frame" x="33" y="0.0" width="227" height="30"/>
+                                <connections>
+                                    <action selector="seekTo:" destination="Rmi-FJ-EdJ" eventType="valueChanged" id="e3r-KD-RcW"/>
+                                </connections>
+                            </slider>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ita-LD-iSM">
+                                <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ita-LD-iSM" secondAttribute="height" multiplier="1:1" id="8dp-54-pam"/>
+                                    <constraint firstAttribute="height" constant="30" id="9vY-T3-cbP"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="play"/>
+                                <connections>
+                                    <action selector="playPauseVideo:" destination="Rmi-FJ-EdJ" eventType="touchUpInside" id="4ki-k9-WgS"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ita-LD-iSM" firstAttribute="leading" secondItem="jFe-DI-PWC" secondAttribute="leading" id="1qR-G3-5rZ"/>
+                            <constraint firstAttribute="trailing" secondItem="x35-ho-ETF" secondAttribute="trailing" id="WsS-ht-5vm"/>
+                            <constraint firstAttribute="height" constant="40" id="eM7-bt-KIn"/>
+                            <constraint firstItem="x35-ho-ETF" firstAttribute="leading" secondItem="ita-LD-iSM" secondAttribute="trailing" constant="5" id="eSz-Ry-7ft"/>
+                            <constraint firstItem="x35-ho-ETF" firstAttribute="centerY" secondItem="jFe-DI-PWC" secondAttribute="centerY" id="mXr-hT-LBv"/>
+                            <constraint firstItem="ita-LD-iSM" firstAttribute="centerY" secondItem="jFe-DI-PWC" secondAttribute="centerY" id="yNs-TH-Bqa"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="jFe-DI-PWC" secondAttribute="bottom" constant="5" id="02y-4m-Wn1"/>
+                    <constraint firstItem="jFe-DI-PWC" firstAttribute="leading" secondItem="zir-uw-7Dd" secondAttribute="leading" constant="15" id="IYB-tL-pG4"/>
+                    <constraint firstItem="jFe-DI-PWC" firstAttribute="top" secondItem="zir-uw-7Dd" secondAttribute="top" constant="5" id="Myh-sh-HqQ"/>
+                    <constraint firstAttribute="trailing" secondItem="jFe-DI-PWC" secondAttribute="trailing" constant="15" id="V0l-d3-ItC"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="playPauseButton" destination="ita-LD-iSM" id="4zE-Wd-XFi"/>
+                <outlet property="timeSeekbar" destination="x35-ho-ETF" id="WTi-m4-xyz"/>
+                <outlet property="videoPlayerSuperView" destination="jFe-DI-PWC" id="dV2-JI-b4c"/>
+            </connections>
+            <point key="canvasLocation" x="123" y="27"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="play" width="16" height="16"/>
+    </resources>
+</document>
