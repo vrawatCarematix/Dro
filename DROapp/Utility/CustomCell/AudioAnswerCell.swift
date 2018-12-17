@@ -183,7 +183,7 @@ class AudioAnswerCell: UITableViewCell {
                     timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
                     
                 } catch let error {
-                    print(error.localizedDescription)
+                    debugPrint(error.localizedDescription)
                 }
                 //try  manager.removeItem(atPath: audioUrl.path)
             }

@@ -31,12 +31,12 @@
 		<dict>
 			<key>UNNotificationExtensionCategory</key>
 			<array>
-				<string>ReminderCategory</string>
+				<string>ReminderCatego</string>
 			</array>
-			<key>UNNotificationExtensionInitialContentSizeRatio</key>
-			<real>1</real>
 			<key>UNNotificationExtensionDefaultContentHidden</key>
 			<true/>
+			<key>UNNotificationExtensionInitialContentSizeRatio</key>
+			<real>1</real>
 		</dict>
 		<key>NSExtensionMainStoryboard</key>
 		<string>MainInterface</string>

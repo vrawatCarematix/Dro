@@ -102,6 +102,8 @@
 		17392DB020F4CA1E005F4AE1 /* StudyTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17392DAF20F4CA1E005F4AE1 /* StudyTableCell.swift */; };
 		17392DB220F4DAE8005F4AE1 /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17392DB120F4DAE8005F4AE1 /* LeftViewController.swift */; };
 		17404CC0213E62A2005B412D /* ValidationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17404CBF213E62A2005B412D /* ValidationModel.swift */; };
+		1741A00621B7BB1000C31FF8 /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1741A00521B7BB1000C31FF8 /* HeaderCell.swift */; };
+		1741A00821B7BB6100C31FF8 /* RowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1741A00721B7BB6100C31FF8 /* RowCell.swift */; };
 		174269E7211048EE00EC6935 /* DroHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174269E6211048EE00EC6935 /* DroHomeController.swift */; };
 		174269E921104A4000EC6935 /* InsturctionDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174269E821104A4000EC6935 /* InsturctionDetailCell.swift */; };
 		174269EB21104A5800EC6935 /* DroDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174269EA21104A5800EC6935 /* DroDetailCell.swift */; };
@@ -487,6 +489,11 @@
 		17392DAF20F4CA1E005F4AE1 /* StudyTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyTableCell.swift; sourceTree = "<group>"; };
 		17392DB120F4DAE8005F4AE1 /* LeftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
 		17404CBF213E62A2005B412D /* ValidationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationModel.swift; sourceTree = "<group>"; };
+		1741A00221B79C3400C31FF8 /* DroNotificationContent.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DroNotificationContent.entitlements; sourceTree = "<group>"; };
+		1741A00321B7B44100C31FF8 /* DroWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DroWidget.entitlements; sourceTree = "<group>"; };
+		1741A00421B7B44700C31FF8 /* DroNotifciationService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DroNotifciationService.entitlements; sourceTree = "<group>"; };
+		1741A00521B7BB1000C31FF8 /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
+		1741A00721B7BB6100C31FF8 /* RowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowCell.swift; sourceTree = "<group>"; };
 		174269E6211048EE00EC6935 /* DroHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroHomeController.swift; sourceTree = "<group>"; };
 		174269E821104A4000EC6935 /* InsturctionDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsturctionDetailCell.swift; sourceTree = "<group>"; };
 		174269EA21104A5800EC6935 /* DroDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroDetailCell.swift; sourceTree = "<group>"; };
@@ -1333,6 +1340,7 @@
 		179AF1D821B665AE00FBCC22 /* DroNotifciationService */ = {
 			isa = PBXGroup;
 			children = (
+				1741A00421B7B44700C31FF8 /* DroNotifciationService.entitlements */,
 				179AF1D921B665AE00FBCC22 /* NotificationService.swift */,
 				179AF1DB21B665AE00FBCC22 /* Info.plist */,
 			);
@@ -1342,8 +1350,11 @@
 		179AF1EA21B665C800FBCC22 /* DroWidget */ = {
 			isa = PBXGroup;
 			children = (
+				1741A00321B7B44100C31FF8 /* DroWidget.entitlements */,
 				179AF23521B66CF600FBCC22 /* DataBaseHandler */,
 				179AF1EB21B665C800FBCC22 /* TodayViewController.swift */,
+				1741A00521B7BB1000C31FF8 /* HeaderCell.swift */,
+				1741A00721B7BB6100C31FF8 /* RowCell.swift */,
 				179AF1ED21B665C800FBCC22 /* MainInterface.storyboard */,
 				179AF1F021B665C800FBCC22 /* Info.plist */,
 			);
@@ -1353,6 +1364,7 @@
 		179AF20021B665E000FBCC22 /* DroNotificationContent */ = {
 			isa = PBXGroup;
 			children = (
+				1741A00221B79C3400C31FF8 /* DroNotificationContent.entitlements */,
 				179AF20121B665E000FBCC22 /* NotificationViewController.swift */,
 				179AF20321B665E000FBCC22 /* MainInterface.storyboard */,
 				179AF20621B665E000FBCC22 /* Info.plist */,
@@ -1690,24 +1702,42 @@
 						LastSwiftMigration = 1000;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
-								enabled = 0;
+								enabled = 1;
 							};
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
 							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.SafariKeychain = {
 								enabled = 0;
 							};
 						};
 					};
 					179AF1D621B665AD00FBCC22 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					179AF1E621B665C800FBCC22 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					179AF1FA21B665E000FBCC22 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1873,7 +1903,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		17E27D74219C2FB700455AF1 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -1885,7 +1915,7 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 432bb5d564ef417ba22203972cfd77bc62a7361a 256437c1f6d8862418234ebab566d47a98dd0b2e8e4f4579587e4af284531ce3\n";
 		};
@@ -2158,7 +2188,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1741A00821B7BB6100C31FF8 /* RowCell.swift in Sources */,
 				179AF22C21B66C2500FBCC22 /* MediaModel.swift in Sources */,
+				1741A00621B7BB1000C31FF8 /* HeaderCell.swift in Sources */,
 				179AF23721B66CF600FBCC22 /* DatabaseHandler.swift in Sources */,
 				179AF21D21B667DF00FBCC22 /* StringConstant.swift in Sources */,
 				179AF22F21B66C5B00FBCC22 /* TimelineModel.swift in Sources */,
@@ -2379,10 +2411,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = DROapp/DROapp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9JFD7HHDSV;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/DROapp/Utility/Resource/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2391,7 +2425,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.carematix.DRO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = Dev_Dro_30Oct;
+				PROVISIONING_PROFILE_SPECIFIER = Dev_Dro11Dec;
 				SWIFT_OBJC_BRIDGING_HEADER = DROapp/Utility/Reachability/DRO_Bridge_Header.h;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2404,9 +2438,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = DROapp/DROapp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 9JFD7HHDSV;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/DROapp/Utility/Resource/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2415,7 +2451,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.carematix.DRO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = Dev_Dro_30Oct;
+				PROVISIONING_PROFILE_SPECIFIER = Dev_Dro11Dec;
 				SWIFT_OBJC_BRIDGING_HEADER = DROapp/Utility/Reachability/DRO_Bridge_Header.h;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2425,11 +2461,12 @@
 		179AF1DF21B665AE00FBCC22 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = DroNotifciationService/DroNotifciationService.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 9JFD7HHDSV;
 				INFOPLIST_FILE = DroNotifciationService/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2437,9 +2474,9 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.carematix.DRO.DroNotifciationService;
+				PRODUCT_BUNDLE_IDENTIFIER = com.carematix.DRO.DROService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = Dev_Wildcard;
+				PROVISIONING_PROFILE_SPECIFIER = Dev_DROService_11December;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2449,20 +2486,21 @@
 		179AF1E021B665AE00FBCC22 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = DroNotifciationService/DroNotifciationService.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 9JFD7HHDSV;
 				INFOPLIST_FILE = DroNotifciationService/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.carematix.DRO.DroNotifciationService;
+				PRODUCT_BUNDLE_IDENTIFIER = com.carematix.DRO.DROService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = Dev_Wildcard;
+				PROVISIONING_PROFILE_SPECIFIER = Dev_DROService_11December;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2472,11 +2510,12 @@
 		179AF1F521B665C800FBCC22 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = DroWidget/DroWidget.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 9JFD7HHDSV;
 				INFOPLIST_FILE = DroWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2484,9 +2523,9 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.carematix.DRO.DroWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.carematix.DRO.DROWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = Dev_Wildcard;
+				PROVISIONING_PROFILE_SPECIFIER = Dev_DROWidget_11December;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2496,20 +2535,21 @@
 		179AF1F621B665C800FBCC22 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = DroWidget/DroWidget.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 9JFD7HHDSV;
 				INFOPLIST_FILE = DroWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.carematix.DRO.DroWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.carematix.DRO.DROWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = Dev_Wildcard;
+				PROVISIONING_PROFILE_SPECIFIER = Dev_DROWidget_11December;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2519,11 +2559,13 @@
 		179AF20B21B665E000FBCC22 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = DroNotificationContent/DroNotificationContent.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9JFD7HHDSV;
 				INFOPLIST_FILE = DroNotificationContent/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2531,9 +2573,9 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.carematix.DRO.DroNotificationContent;
+				PRODUCT_BUNDLE_IDENTIFIER = com.carematix.DRO.DROContent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = Dev_Wildcard;
+				PROVISIONING_PROFILE_SPECIFIER = Dev_DROContent_11December;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2543,20 +2585,21 @@
 		179AF20C21B665E000FBCC22 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = DroNotificationContent/DroNotificationContent.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 9JFD7HHDSV;
 				INFOPLIST_FILE = DroNotificationContent/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.carematix.DRO.DroNotificationContent;
+				PRODUCT_BUNDLE_IDENTIFIER = com.carematix.DRO.DROContent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = Dev_Wildcard;
+				PROVISIONING_PROFILE_SPECIFIER = Dev_DROContent_11December;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";

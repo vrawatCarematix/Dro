@@ -36,7 +36,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="okG-cl-eSt">
                                         <rect key="frame" x="20" y="97" width="280" height="30"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="999" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xgo-Oo-aOy">
+                                            <button contentMode="scaleToFill" verticalCompressionResistancePriority="999" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xgo-Oo-aOy">
                                                 <rect key="frame" x="0.0" y="0.0" width="125" height="30"/>
                                                 <color key="backgroundColor" red="0.010154617950320244" green="0.61308795213699341" blue="0.86967271566390991" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
@@ -50,7 +50,7 @@
                                                     <action selector="startSurvey:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="XZk-MP-WFW"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="999" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="999" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TUh-wg-GwO">
+                                            <button contentMode="scaleToFill" horizontalHuggingPriority="999" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="999" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TUh-wg-GwO">
                                                 <rect key="frame" x="155" y="0.0" width="125" height="30"/>
                                                 <color key="backgroundColor" red="0.98258727788925171" green="0.23612183332443237" blue="0.27228721976280212" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>

@@ -8,6 +8,8 @@
 
 import UIKit
 import LGSideMenuController
+import NotificationCenter
+
 class SignInController: UIViewController {
     
     //MARK: - Oultets
@@ -129,7 +131,11 @@ class SignInController: UIViewController {
     //Login
     func callLoginWebService()  {
        CustomActivityIndicator.startAnimating(message: kAuthenticating.localisedString() + "...")
-        let params = [ pusername :textfieldEmail.text! , ppassword : textfieldPassword.text!.toBase64() , planguage : "EN",  psource : kIOS]
+        var params = [ pusername :textfieldEmail.text! , ppassword : textfieldPassword.text!.toBase64() , planguage : "EN",  psource : kIOS ]
+        if let token =  AppDelegateInstance.notificationToken {
+            params["dnToken"] = token
+        }
+        
         WebServiceMethods.sharedInstance.login(params){ (success, response, message ,responseHeader) in
             DispatchQueue.main.async {
                 if success {

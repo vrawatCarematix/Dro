@@ -9,7 +9,7 @@ protocol MonthViewDelegate: class {
 
 class MonthView: UIView {
     var monthsArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    var currentMonthIndex = 0
+    var currentMonthIndex = 2
     var currentYear: Int = 0
     var delegate: MonthViewDelegate?
     
@@ -101,18 +101,15 @@ class MonthView: UIView {
             btnRight.widthAnchor.constraint(equalToConstant: 20).isActive=true
             btnRight.heightAnchor.constraint(equalToConstant: 20).isActive=true
             btnRight.rightAnchor.constraint(equalTo: rightAnchor, constant: -5 ).isActive = true
-
             self.addSubview(btnLeft)
            // btnLeft.topAnchor.constraint(equalTo: topAnchor).isActive=true
            // btnLeft.leftAnchor.constraint(equalTo: leftAnchor).isActive=true
             btnLeft.leftAnchor.constraint(equalTo: leftAnchor, constant: 5 ).isActive = true
             btnLeft.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-
             btnLeft.widthAnchor.constraint(equalToConstant: 20).isActive=true
             btnLeft.heightAnchor.constraint(equalToConstant: 20).isActive=true
         }
         
-       
     }
     
     let lblName: UILabel = {

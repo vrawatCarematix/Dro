@@ -87,7 +87,7 @@ class ProfileViewController: UIViewController {
                             self.parseProfileData(response: dictonary)
                         }
                     } catch let error as NSError {
-                        print(error)
+                        debugPrint(error)
                     }
                 }
             }

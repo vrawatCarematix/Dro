@@ -9,39 +9,159 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Display-Regular.otf">
+            <string>SFProDisplay-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Today View Controller-->
         <scene sceneID="cwh-vc-ff4">
             <objects>
                 <viewController id="M4Y-Lb-cyx" customClass="TodayViewController" customModule="DroWidget" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" opaque="NO" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="537"/>
+                    <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bi9-uF-fC9">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="537"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K9B-Fj-aSv">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No DROs due today" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4n1-P4-BZt">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
+                                        <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="40" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bi9-uF-fC9">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="230" id="9f9-GS-eVM"/>
+                                        </constraints>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderCell" id="ukq-5L-yTN" customClass="HeaderCell" customModule="DroWidget" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ukq-5L-yTN" id="LgY-WA-8YN">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="biF-gB-WTx">
+                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                                            <color key="backgroundColor" red="0.10765255242586136" green="0.74955934286117554" blue="0.63612562417984009" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="999" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mjG-Yc-B2h">
+                                                            <rect key="frame" x="15" y="6" width="290" height="31.5"/>
+                                                            <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="17"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="mjG-Yc-B2h" firstAttribute="top" secondItem="LgY-WA-8YN" secondAttribute="top" constant="6" id="C0Q-Uz-KmQ"/>
+                                                        <constraint firstAttribute="bottom" secondItem="biF-gB-WTx" secondAttribute="bottom" id="Urc-4e-pmG"/>
+                                                        <constraint firstAttribute="bottom" secondItem="mjG-Yc-B2h" secondAttribute="bottom" constant="6" id="aSz-cm-QMn"/>
+                                                        <constraint firstItem="mjG-Yc-B2h" firstAttribute="leading" secondItem="LgY-WA-8YN" secondAttribute="leading" constant="15" id="b1j-BS-D7z"/>
+                                                        <constraint firstAttribute="trailing" secondItem="biF-gB-WTx" secondAttribute="trailing" id="d7Q-OR-5pT"/>
+                                                        <constraint firstItem="biF-gB-WTx" firstAttribute="top" secondItem="LgY-WA-8YN" secondAttribute="top" id="lJv-E5-KUA"/>
+                                                        <constraint firstItem="biF-gB-WTx" firstAttribute="leading" secondItem="LgY-WA-8YN" secondAttribute="leading" id="qmx-Xf-bda"/>
+                                                        <constraint firstAttribute="trailing" secondItem="mjG-Yc-B2h" secondAttribute="trailing" constant="15" id="vh8-i5-OES"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="headerBackgroundImage" destination="biF-gB-WTx" id="6gf-nk-Cmt"/>
+                                                    <outlet property="headerTitle" destination="mjG-Yc-B2h" id="kGe-xB-Wg2"/>
+                                                </connections>
+                                            </tableViewCell>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RowCell" id="Vob-ju-2HI" customClass="RowCell" customModule="DroWidget" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="72" width="320" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Vob-ju-2HI" id="Nr0-0C-8UU">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EQ9-jk-YVi">
+                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XMY-ND-xex">
+                                                            <rect key="frame" x="15" y="6" width="290" height="18.5"/>
+                                                            <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="999" verticalCompressionResistancePriority="999" translatesAutoresizingMaskIntoConstraints="NO" id="bPO-Z9-O40">
+                                                            <rect key="frame" x="15" y="30.5" width="290" height="4"/>
+                                                            <color key="backgroundColor" red="0.90588235289999997" green="0.92156862750000001" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="4" id="Tlv-bI-Ntz"/>
+                                                            </constraints>
+                                                            <color key="progressTintColor" red="0.0" green="0.6588235294" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="trackTintColor" red="0.0" green="0.6588235294117647" blue="0.94117647058823528" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <integer key="value" value="2"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </progressView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="bPO-Z9-O40" secondAttribute="bottom" constant="9" id="3vM-EL-Dk4"/>
+                                                        <constraint firstItem="XMY-ND-xex" firstAttribute="leading" secondItem="Nr0-0C-8UU" secondAttribute="leading" constant="15" id="8up-og-FCw"/>
+                                                        <constraint firstAttribute="trailing" secondItem="EQ9-jk-YVi" secondAttribute="trailing" id="Bx4-g2-bCJ"/>
+                                                        <constraint firstItem="bPO-Z9-O40" firstAttribute="top" secondItem="XMY-ND-xex" secondAttribute="bottom" constant="6" id="Eby-8M-qOv"/>
+                                                        <constraint firstAttribute="bottom" secondItem="EQ9-jk-YVi" secondAttribute="bottom" id="T0v-CC-V6b"/>
+                                                        <constraint firstAttribute="bottom" secondItem="XMY-ND-xex" secondAttribute="bottom" constant="6" id="Uys-qj-5tF"/>
+                                                        <constraint firstAttribute="trailing" secondItem="bPO-Z9-O40" secondAttribute="trailing" constant="15" id="bBT-Ro-iTI"/>
+                                                        <constraint firstItem="bPO-Z9-O40" firstAttribute="leading" secondItem="Nr0-0C-8UU" secondAttribute="leading" constant="15" id="cD5-d0-b1h"/>
+                                                        <constraint firstAttribute="trailing" secondItem="XMY-ND-xex" secondAttribute="trailing" constant="15" id="clh-7g-Fng"/>
+                                                        <constraint firstItem="XMY-ND-xex" firstAttribute="top" secondItem="Nr0-0C-8UU" secondAttribute="top" constant="6" id="e3M-F1-hXE"/>
+                                                        <constraint firstItem="EQ9-jk-YVi" firstAttribute="top" secondItem="Nr0-0C-8UU" secondAttribute="top" id="eeG-Kq-6s3"/>
+                                                        <constraint firstItem="EQ9-jk-YVi" firstAttribute="leading" secondItem="Nr0-0C-8UU" secondAttribute="leading" id="igv-b7-Brp"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="bottomConstrientToProgressView" destination="3vM-EL-Dk4" id="D5J-RW-nOa"/>
+                                                    <outlet property="bottomConstrientToSuperView" destination="Uys-qj-5tF" id="zhu-81-8io"/>
+                                                    <outlet property="progressView" destination="bPO-Z9-O40" id="gpc-Qy-oAa"/>
+                                                    <outlet property="rowBackgroundImage" destination="EQ9-jk-YVi" id="4w5-ij-RLN"/>
+                                                    <outlet property="rowTitle" destination="XMY-ND-xex" id="O0R-gz-h2t"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="M4Y-Lb-cyx" id="ki1-Ij-7TY"/>
+                                            <outlet property="delegate" destination="M4Y-Lb-cyx" id="KMf-i1-oT1"/>
+                                        </connections>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="537" id="wvQ-e1-rvd"/>
+                                    <constraint firstAttribute="trailing" secondItem="Bi9-uF-fC9" secondAttribute="trailing" id="3kI-W5-UrE"/>
+                                    <constraint firstItem="4n1-P4-BZt" firstAttribute="leading" secondItem="K9B-Fj-aSv" secondAttribute="leading" id="5FU-aN-BOR"/>
+                                    <constraint firstAttribute="bottom" secondItem="Bi9-uF-fC9" secondAttribute="bottom" id="GaS-CX-CTa"/>
+                                    <constraint firstItem="Bi9-uF-fC9" firstAttribute="leading" secondItem="K9B-Fj-aSv" secondAttribute="leading" id="H6P-Fx-Wqe"/>
+                                    <constraint firstAttribute="trailing" secondItem="4n1-P4-BZt" secondAttribute="trailing" id="MW7-sc-Hdt"/>
+                                    <constraint firstItem="Bi9-uF-fC9" firstAttribute="top" secondItem="K9B-Fj-aSv" secondAttribute="top" id="ayM-bQ-FVc"/>
+                                    <constraint firstItem="4n1-P4-BZt" firstAttribute="top" secondItem="K9B-Fj-aSv" secondAttribute="top" id="h7p-mc-Bzn"/>
+                                    <constraint firstAttribute="bottom" secondItem="4n1-P4-BZt" secondAttribute="bottom" id="mLb-u5-ga1"/>
                                 </constraints>
-                                <connections>
-                                    <outlet property="dataSource" destination="M4Y-Lb-cyx" id="ki1-Ij-7TY"/>
-                                    <outlet property="delegate" destination="M4Y-Lb-cyx" id="KMf-i1-oT1"/>
-                                </connections>
-                            </tableView>
+                            </view>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="ssy-KU-ocm" firstAttribute="trailing" secondItem="Bi9-uF-fC9" secondAttribute="trailing" id="Aq9-c7-kFh"/>
-                            <constraint firstItem="Bi9-uF-fC9" firstAttribute="top" secondItem="S3S-Oj-5AN" secondAttribute="top" id="Qf8-yK-lDi"/>
-                            <constraint firstAttribute="bottom" secondItem="Bi9-uF-fC9" secondAttribute="bottom" id="k4a-Ml-hXr"/>
-                            <constraint firstItem="Bi9-uF-fC9" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" id="wsr-zo-53D"/>
+                            <constraint firstItem="K9B-Fj-aSv" firstAttribute="trailing" secondItem="ssy-KU-ocm" secondAttribute="trailing" id="5Mz-bn-YjU"/>
+                            <constraint firstItem="ssy-KU-ocm" firstAttribute="bottom" secondItem="K9B-Fj-aSv" secondAttribute="bottom" id="K9f-bc-dEm"/>
+                            <constraint firstItem="K9B-Fj-aSv" firstAttribute="top" secondItem="ssy-KU-ocm" secondAttribute="top" id="TU2-hh-LBo"/>
+                            <constraint firstItem="K9B-Fj-aSv" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" id="Zna-SV-hof"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ssy-KU-ocm"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="537"/>
+                    <size key="freeformSize" width="320" height="230"/>
                     <connections>
+                        <outlet property="heightConstant" destination="9f9-GS-eVM" id="lIw-Uf-YOP"/>
+                        <outlet property="noDueLabel" destination="4n1-P4-BZt" id="X0p-qR-nWY"/>
                         <outlet property="upComingTable" destination="Bi9-uF-fC9" id="B1W-kU-OaQ"/>
                     </connections>
                 </viewController>

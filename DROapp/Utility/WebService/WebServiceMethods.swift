@@ -371,7 +371,7 @@ class WebServiceMethods : ServiceManager {
                     do {
                         dictonary = try JSONSerialization.jsonObject(with: data, options: []) as? [String :Any]
                     } catch let error as NSError {
-                        print(error)
+                        debugPrint(error)
                     }
                     if let dict = dictonary ,  let message = dict["message"] as? String , message.lowercased() == "success".lowercased(){
                         completionHandler(true, dict,"success")
@@ -923,7 +923,7 @@ class WebServiceMethods : ServiceManager {
                     do {
                         dictonary = try JSONSerialization.jsonObject(with: data, options: []) as? [String :Any]
                     } catch let error as NSError {
-                        print(error)
+                        debugPrint(error)
                     }
                     if let dict = dictonary ,  let message = dict["message"] as? String , message == "success"{
                         var  jsonData = Data()
@@ -932,7 +932,7 @@ class WebServiceMethods : ServiceManager {
                                 , options: .prettyPrinted) as Data
                             kUserDefault.set(jsonData, forKey: kProfileData)
                         } catch {
-                            print(error.localizedDescription)
+                            debugPrint(error.localizedDescription)
                         }
                         completionHandler(true, dict,"success")
                     }else{
@@ -988,7 +988,7 @@ class WebServiceMethods : ServiceManager {
             switch result {
             case .success(let upload, _, _):
                 upload.uploadProgress(closure: { (progress) in
-                    print("Upload Progress: \(progress.fractionCompleted)")
+                    debugPrint("Upload Progress: \(progress.fractionCompleted)")
                 })
                 upload.responseJSON { response in
                     if let id = response.result.value as? Int{
@@ -1000,7 +1000,7 @@ class WebServiceMethods : ServiceManager {
                     }
                 }
             case .failure(let encodingError):
-                print(encodingError)
+                debugPrint(encodingError)
                 completionHandler(false, 0 ,"failure")
 
             }

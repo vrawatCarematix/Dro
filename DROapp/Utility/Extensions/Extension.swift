@@ -465,7 +465,8 @@ extension UILabel {
 }
 extension UILabel {
     func calculateMaxLines() -> Int {
-        let maxSize = CGSize(width: frame.size.width, height: CGFloat(Float.infinity))
+       
+        let maxSize = CGSize(width:  UIScreen.main.bounds.size.width - 20, height: CGFloat(Float.infinity))
         let charSize = font.lineHeight
         let text = (self.text ?? "") as NSString
         let textSize = text.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
@@ -969,7 +970,7 @@ extension UIViewController{
     func getsurveySession( survey : SurveySubmitModel)  {
         WebServiceMethods.sharedInstance.surveySession(survey.surveySessionId ?? 0 ){ (success, response, message) in
             DispatchQueue.main.async {
-                print("getsurveySession" + "--->" + response.debugDescription)
+                debugPrint("getsurveySession" + "--->" + response.debugDescription)
                 if success {
                    let surveySubmit = SurveySubmitModel(jsonObject: response)
                     survey.pagesJson = surveySubmit.pagesJson
@@ -1176,7 +1177,7 @@ extension UIViewController{
                     kUserDefault.set(jsonData, forKey: kProfileData)
                     self.parseProfileOffline(response: response)
                 } catch {
-                    print(error.localizedDescription)
+                    debugPrint(error.localizedDescription)
                 }
             }
             completionHandler(success, response,message)
@@ -1241,7 +1242,7 @@ extension UIViewController{
     func getMessage( completionHandler:@escaping (Bool,[[String : Any]], String )-> Void) {
         WebServiceMethods.sharedInstance.getMessage(){ (success, response, message) in
             DispatchQueue.main.async {
-                print(response)
+                debugPrint(response)
                 if success {
                     var messagArray = [MessageModel]()
                     for messageData in response{

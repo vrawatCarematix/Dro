@@ -30,8 +30,15 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         continueButton.layer.cornerRadius = 5.0
 
     }
+    
+    func didReceive(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
+      
+        debugPrint("Respoinnse")
+        
+    }
 
     @IBAction func startSurvey(_ sender: UIButton) {
+        debugPrint("frer")
     }
     
     @IBAction func declineSurvey(_ sender: UIButton) {
@@ -39,22 +46,20 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         let alertController = UIAlertController(title: "Action Sheet", message: "What would you like to do?", preferredStyle: .actionSheet)
         
         let sendButton = UIAlertAction(title: "Send now", style: .default, handler: { (action) -> Void in
-            print("Ok button tapped")
+            debugPrint("Ok button tapped")
         })
         
         let  deleteButton = UIAlertAction(title: "Delete forever", style: .destructive, handler: { (action) -> Void in
-            print("Delete button tapped")
+            debugPrint("Delete button tapped")
         })
         
         let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
-            print("Cancel button tapped")
+            debugPrint("Cancel button tapped")
         })
-        
-        
+
         alertController.addAction(sendButton)
         alertController.addAction(deleteButton)
         alertController.addAction(cancelButton)
-        
         self.present(alertController, animated: true, completion: nil)
         
     }

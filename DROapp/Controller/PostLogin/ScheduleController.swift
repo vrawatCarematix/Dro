@@ -27,7 +27,7 @@ class ScheduleController :  UIViewController {
 
     var survey = [String : Any]()
     var selectedDate = Date()
-    lazy var calenderView: CalenderView = {
+    lazy var  calenderView: CalenderView = {
         let calenderView = CalenderView(theme: MyTheme.light)
         calenderView.translatesAutoresizingMaskIntoConstraints=false
         return calenderView
@@ -160,6 +160,8 @@ class ScheduleController :  UIViewController {
                 }
                 else{
                     self.showErrorAlert(titleString: kAlert.localisedString(), message: message)
+                    self.showDataOnCalender()
+
                 }
             }
         }
@@ -199,13 +201,9 @@ class ScheduleController :  UIViewController {
             let screen = UIScreen.main.bounds
             if UIDevice.current.userInterfaceIdiom == .pad{
                 calenderView.heightAnchor.constraint(equalToConstant: ((screen.width / 7) * 5) + 130 ).isActive=true
-
             }else{
-                calenderView.heightAnchor.constraint(equalToConstant: ((screen.width / 7) * 5) + 65 ).isActive=true
-
+                calenderView.heightAnchor.constraint(equalToConstant: ((screen.width / 7) * 6) + 65 ).isActive=true
             }
-        }else{
-            
         }
         calenderView.isHidden = !calenderView.isHidden
     }
@@ -397,6 +395,8 @@ extension ScheduleController  :  UITableViewDelegate{
 }
 
 extension ScheduleController:  CalenderDelegate {
+    
+    
     func didTapDate(date: String, available: Bool) {
         if available == true {
             calenderView.isHidden = !calenderView.isHidden
@@ -410,8 +410,38 @@ extension ScheduleController:  CalenderDelegate {
     }
     
     func didChangeMonth(monthIndex: Int, year: Int, calender: CalenderView) {
-        getCalenderData()
-        calenderView.myCollectionView.reloadData()
+        if CheckNetworkUsability.sharedInstance().checkInternetConnection() {
+            getCalenderData()
+        }else{
+            showDataOnCalender()
+        }
+        calenderView.removeFromSuperview()
+        if calenderView == nil {
+                 calenderView = CalenderView(theme: MyTheme.light)
+                calenderView.translatesAutoresizingMaskIntoConstraints=false
+        }
+        view.addSubview(calenderView)
+        calenderView.delegate = self
+        calenderView.topAnchor.constraint(equalTo : self.navView.bottomAnchor).isActive = true
+        calenderView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive=true
+        calenderView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive=true
+        let screen = UIScreen.main.bounds
+        let count = calenderView.numOfDaysInMonth[calenderView.currentMonthIndex-1] + calenderView.firstWeekDayOfMonth - 1
+        if count > 35 {
+            if UIDevice.current.userInterfaceIdiom == .pad{
+                calenderView.heightAnchor.constraint(equalToConstant: ((screen.width / 7) * 5) + 130 ).isActive=true
+            }else{
+                calenderView.heightAnchor.constraint(equalToConstant: ((screen.width / 7) * 6) + 65 ).isActive=true
+            }
+        }else{
+            if UIDevice.current.userInterfaceIdiom == .pad{
+                calenderView.heightAnchor.constraint(equalToConstant: ((screen.width / 7) * 5) + 130 ).isActive=true
+            }else{
+                calenderView.heightAnchor.constraint(equalToConstant: ((screen.width / 7) * 5) + 65 ).isActive=true
+            }
+        }
+       
+
     }
     
     fileprivate func showAlert(){

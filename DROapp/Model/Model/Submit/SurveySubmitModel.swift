@@ -173,9 +173,8 @@ class SurveySubmitModel: NSObject {
                                 if succes {
                                     media.name = message
                                     let _ = DatabaseHandler.insertIntoMedia(media: media)
-                                    print("here")
                                 }else{
-                                    print("fail")
+                                    debugPrint("fail")
                                 }
                             })
                         }
@@ -314,9 +313,9 @@ class SurveySubmitModel: NSObject {
                                     media.name = message
                                     media.isUploaded = 1
                                     let _ = DatabaseHandler.insertIntoMedia(media: media)
-                                    print("here")
+                                    debugPrint("here")
                                 }else{
-                                    print("fail")
+                                    debugPrint("fail")
                                 }
                             })
                         }

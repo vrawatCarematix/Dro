@@ -30,10 +30,20 @@ class DatabaseHandler: NSObject {
     }
     
     static func getDBPath() -> String {
-        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let fileURL = documentsURL.appendingPathComponent(DATABASE_NAME)
-        debugPrint("dbpath : =  " + fileURL.path)
-        return fileURL.path
+        let fileManager = FileManager.default
+        if let directory = fileManager.containerURL(forSecurityApplicationGroupIdentifier: AppGroupID) {
+            let newDirectory = directory.appendingPathComponent(DATABASE_NAME)
+            debugPrint("dbpath : =  " + newDirectory.path)
+            
+            return newDirectory.path
+            
+            //try? fileManager.createDirectory(at: newDirectory, withIntermediateDirectories: false, attributes: nil)
+        }else{
+            let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            let fileURL = documentsURL.appendingPathComponent(DATABASE_NAME)
+            debugPrint("dbpath : =  " + fileURL.path)
+            return fileURL.path
+        }
     }
     
     
@@ -3087,7 +3097,7 @@ class DatabaseHandler: NSObject {
                                 }
                             }
                         } catch {
-                            print(error.localizedDescription)
+                            debugPrint(error.localizedDescription)
                         }
                     }
                 }
@@ -3123,7 +3133,7 @@ class DatabaseHandler: NSObject {
                                 }
                             }
                         } catch {
-                            print(error.localizedDescription)
+                            debugPrint(error.localizedDescription)
                         }
                     }
                 }

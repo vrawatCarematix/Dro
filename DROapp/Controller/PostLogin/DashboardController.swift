@@ -9,6 +9,7 @@
 import UIKit
 import FoldingCell
 import UserNotifications
+import NotificationCenter
 class DashboardController: UIViewController {
     
     //MARK:- Outlet
@@ -27,7 +28,7 @@ class DashboardController: UIViewController {
     var cellHeights = [String : CGFloat]()
     var firstTimeOnScreen = true
     var isVisible = false
-
+    
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
@@ -37,11 +38,11 @@ class DashboardController: UIViewController {
     }()
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
-  
+        
         if  CheckNetworkUsability.sharedInstance().checkInternetConnection() {
-          //  CustomActivityIndicator.startAnimating( message: "Refreshing...")
+            //  CustomActivityIndicator.startAnimating( message: "Refreshing...")
             self.getAllSurveyData({ (success, message) in
-              //  CustomActivityIndicator.stopAnimating()
+                //  CustomActivityIndicator.stopAnimating()
                 self.getTimeLineData()
                 //completionHandler(success , message )
             })
@@ -60,13 +61,13 @@ class DashboardController: UIViewController {
         
         //App languageChange
         NotificationCenter.default.addObserver(self, selector: #selector(setText), name: NSNotification.Name(rawValue: klanguagechange) , object: nil)
-
+        
         //Dashboard Folding cell collapse or expend
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(expandCell(notification:)), name: NSNotification.Name(rawValue: kDashboardCollapse) , object: nil)
         
         // Network State Change
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(networkAvailableRefreshData), name: NSNotification.Name(rawValue: kNetworkAvailable) , object: nil)
         
         //Pull to refesh
@@ -80,7 +81,7 @@ class DashboardController: UIViewController {
                 self.updateMessage({ (success, message) in
                     self.updateDeclineSurvey({ (success, message) in
                         self.uploadSurveyData({ (success, message) in
-                            print(message)
+                            debugPrint(message)
                             var endTime = Int(Date().timeIntervalSince1970)
                             endTime  += TimeZone.current.secondsFromGMT()
                             let _ = DatabaseHandler.expireOldSuvey(endTime: endTime * 1000)
@@ -133,15 +134,15 @@ class DashboardController: UIViewController {
         setText()
         isVisible = true
         kUserDefault.set(AppController.DashboardController, forKey: kRootScreen)
-     
+        
         
     }
     
     
     
     override func viewWillDisappear(_ animated: Bool) {
-         isVisible = false
-
+        isVisible = false
+        
         if openCell.contains("1"){
             let dict = [kOpen : Collapse.close , kCell : DashboardCellType.DueToday] as [String : Any]
             NotificationCenter.default.post( name: NSNotification.Name(rawValue: kDashboardCollapse), object: dict)
@@ -189,6 +190,8 @@ class DashboardController: UIViewController {
         let center = UNUserNotificationCenter.current()
         center.removeAllPendingNotificationRequests()
         setUpcomingSurveyLocalNotification()
+        NCWidgetController().setHasContent(true, forWidgetWithBundleIdentifier: "com.carematix.DRO.DROWidget")
+
     }
     
     // removing all Observer
@@ -198,7 +201,7 @@ class DashboardController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: klanguagechange), object: nil)
         
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: kNetworkAvailable), object: nil)
-
+        
     }
     
     @IBAction func showAlert(_ sender: UIButton) {
@@ -206,7 +209,7 @@ class DashboardController: UIViewController {
         if count != 0 {
             showErrorAlert(titleString: kAlert.localisedString(), message: "You have some unsynced data. Please connect to a network to sync data.")
         }else{
-
+            
         }
     }
     
@@ -241,7 +244,7 @@ class DashboardController: UIViewController {
                     dueTodayUnschedule.percentageCompleted = unscheduled.percentageComplete
                     dueTodayUnschedule.scheduleType = "UNSCHEDULED"
                     dueTodayUnschedule.surveyID = unscheduled.surveyId
-                   if let endDate = unscheduled.scheduledEndTime , endDate != 0 {
+                    if let endDate = unscheduled.scheduledEndTime , endDate != 0 {
                         dueTodayUnschedule.endTime = unscheduled.scheduledEndTime
                     }
                     if let tomorrowDate = dateFormatter.date(from: dateString) , let endDate = dueTodayUnschedule.endTime , endDate != 0 , endDate < ((Int(tomorrowDate.timeIntervalSince1970) + TimeZone.current.secondsFromGMT()) * 1000) {
@@ -280,7 +283,7 @@ class DashboardController: UIViewController {
             self.firstTimeOnScreen = false
             self.dashboardTable.reloadData()
         }
-       
+        
     }
     
     func getTimeLineData()  {
@@ -295,14 +298,14 @@ class DashboardController: UIViewController {
                     let _ = DatabaseHandler.insertIntoTimeline(timelineArray: self.timelineArray)
                 }
                 else{
-//                    if let visibleController = UIApplication.shared.keyWindow?.visibleViewController(){
-//                        visibleController.showErrorAlert(titleString: kAlert.localisedString(), message: message)
-//                    }
+                    //                    if let visibleController = UIApplication.shared.keyWindow?.visibleViewController(){
+                    //                        visibleController.showErrorAlert(titleString: kAlert.localisedString(), message: message)
+                    //                    }
                 }
                 
                 self.getMessage(completionHandler: { (success,response , message) in
                     self.getDashboardData()
-
+                    
                 })
             }
         }
@@ -411,7 +414,7 @@ class DashboardController: UIViewController {
                             var _ = DatabaseHandler.updateSchedule(progressStatus: userSession.surveySessionInfo.progressStatus ?? "", isDeclined: userSession.surveySessionInfo.declined ?? 0, surveySessionId: scheduleSessionId, actualEndTime: 0 , percentageCompleted : userSession.surveySessionInfo.percentageCompleted ?? 0 )
                         }
                         if scheduleSessionId != 0 , let progressStatus = userSession.surveySessionInfo.progressStatus , progressStatus == "STARTED"{
-                           //Scheduled Survey
+                            //Scheduled Survey
                             WebServiceMethods.sharedInstance.surveySession(scheduleSessionId, completionHandler: { (success, response, messge) in
                                 if success{
                                     let updateSurvey = SurveySubmitModel(jsonObject: response)
@@ -454,7 +457,7 @@ class DashboardController: UIViewController {
                             })
                         }else if scheduleSessionId == 0 ,  let userSurveySessionId = userSession.surveySessionInfo.userSurveySessionId  {
                             //Unscheduled Survey
-
+                            
                             WebServiceMethods.sharedInstance.getSurvey(userSurveySessionId, completionHandler: { (success, response, messge) in
                                 if success{
                                     // print(response)
@@ -556,7 +559,7 @@ extension DashboardController : UITableViewDataSource{
                     dateFormatter.locale = Locale(identifier: "EN")
                 }
                 dateFormatter.dateFormat = "MMMM dd, yyyy 'at' hh:mm a"
-              
+                
                 let lastString =  NSMutableAttributedString(string:   kLast_Visit.localisedString(), attributes: [NSAttributedString.Key.foregroundColor:UIColor.darkGray])
                 
                 lastString.append(NSAttributedString(string: dateFormatter.string(from: endDate)))
@@ -669,79 +672,114 @@ extension DashboardController : UITableViewDelegate{
                 self.dashboardTable.isScrollEnabled = true
             }else{
                 //EXPAND
-                for rowString in openCell{
-                    if let row = Int(rowString) {
-                        let indexPath1 = IndexPath(row: row, section: 0)
-                        if let cell1 = self.dashboardTable.cellForRow(at: indexPath1) as? DashboardDueTodayCell{
-                            NSLayoutConstraint.deactivate([cell1.bottomConstrient])
-                            cell1.unfold(false, animated: false, completion: nil)
-                        }else if let cell1 = self.dashboardTable.cellForRow(at: indexPath1) as? DashboardUpcomingCell{
-                            NSLayoutConstraint.deactivate([cell1.bottomConstrient])
-                            cell1.unfold(false, animated: false, completion: nil)
-                        }else if let cell1 = self.dashboardTable.cellForRow(at: indexPath1) as? DashboardTimelineCell{
-                            NSLayoutConstraint.deactivate([cell1.bottomConstrient])
-                            cell1.unfold(false, animated: false, completion: nil)
-                        }else if let cell1 = self.dashboardTable.cellForRow(at: indexPath1) as? DashboardStatisticsCell{
-                            NSLayoutConstraint.deactivate([cell1.bottomConstrient])
-                            cell1.unfold(false, animated: false, completion: nil)
+                
+                if openCell.count == 0 {
+                    self.expand(indexPath: indexPath, cell: cell)
+                }else{
+                    for rowString in openCell{
+                        if let row = Int(rowString) {
+                            let indexPath1 = IndexPath(row: row, section: 0)
+                            if let cell1 = self.dashboardTable.cellForRow(at: indexPath1) as? DashboardDueTodayCell{
+                                NSLayoutConstraint.deactivate([cell1.bottomConstrient])
+                                collapseCellAnimation(cell: cell1, duration: 0.2) {
+                                    self.expand(indexPath: indexPath, cell: cell)
+                                }
+//                                cell1.unfold(false, animated: false) {
+//                                    self.expand(indexPath: indexPath, cell: cell)
+//                                }
+                                //self.expand(indexPath: indexPath, cell: cell)
+
+                            }else if let cell1 = self.dashboardTable.cellForRow(at: indexPath1) as? DashboardUpcomingCell{
+                                NSLayoutConstraint.deactivate([cell1.bottomConstrient])
+                                collapseCellAnimation(cell: cell1, duration: 0.2) {
+                                    self.expand(indexPath: indexPath, cell: cell)
+                                    
+                                }
+//                                cell1.unfold(false, animated: false) {
+//                                    self.expand(indexPath: indexPath, cell: cell)
+//                                }
+                            }else if let cell1 = self.dashboardTable.cellForRow(at: indexPath1) as? DashboardTimelineCell{
+                                NSLayoutConstraint.deactivate([cell1.bottomConstrient])
+                                collapseCellAnimation(cell: cell1, duration: 0.2) {
+                                    self.expand(indexPath: indexPath, cell: cell)
+                                    
+                                }
+//                                cell1.unfold(false, animated: false) {
+//                                    self.expand(indexPath: indexPath, cell: cell)
+//                                }
+                            }else if let cell1 = self.dashboardTable.cellForRow(at: indexPath1) as? DashboardStatisticsCell{
+                                NSLayoutConstraint.deactivate([cell1.bottomConstrient])
+                                collapseCellAnimation(cell: cell1, duration: 0.2) {
+                                    self.expand(indexPath: indexPath, cell: cell)
+                                    
+                                }
+//                                cell1.unfold(false, animated: false) {
+//                                    self.expand(indexPath: indexPath, cell: cell)
+//                                }
+                            }
                         }
                     }
                 }
+                //self.expand(indexPath: indexPath, cell: cell)
+
+            }
+        }
+    }
+    
+    func expand( indexPath: IndexPath , cell :FoldingCell)  {
+        self.dashboardTable.beginUpdates()
+        self.dashboardTable.endUpdates()
+        openCell.removeAll()
+        if indexPath.row == 1 {
+            if dueTodayArray.count == 0{
+                self.dashboardTable.isScrollEnabled = true
+                self.view.showToast(toastMessage: "No DROs due today ", duration: 1.0)
+            }else{
+                let cell1 = cell as! DashboardDueTodayCell
+                self.dashboardTable.isScrollEnabled = false
+                self.openCell.append("\(indexPath.row)")
+                NSLayoutConstraint.activate([cell1.bottomConstrient])
+                expandCellAnimation(cell: cell1, duration: 0.2 )
+            }
+        }else if indexPath.row == 2 {
+            if upcomingArray.count == 0{
+                self.dashboardTable.isScrollEnabled = true
+                self.view.showToast(toastMessage: "No upcoming DROs ", duration: 1.0)
+            }else{
+                let cell1 = cell as! DashboardUpcomingCell
+                self.dashboardTable.isScrollEnabled = false
+                openCell.append("\(indexPath.row)")
+                NSLayoutConstraint.activate([cell1.bottomConstrient])
+                expandCellAnimation(cell: cell1, duration: 0.3)
+            }
+        }else if indexPath.row == 3 {
+            let timelineData = DatabaseHandler.getAllTimeline()
+            if timelineData.count == 0{
+                self.dashboardTable.isScrollEnabled = true
+                self.view.showToast(toastMessage: "No data available", duration: 1.0)
+            }else{
+                self.dashboardTable.isScrollEnabled = false
+                let cell1 = cell as! DashboardTimelineCell
+                NSLayoutConstraint.activate([cell1.bottomConstrient])
+                openCell.append("\(indexPath.row)")
+                expandCellAnimation(cell: cell1, duration: 0.4)
+            }
+        }else if indexPath.row == 4 {
+            let cell1 = cell as! DashboardStatisticsCell
+            openCell.append("\(indexPath.row)")
+            NSLayoutConstraint.activate([cell1.bottomConstrient])
+            self.dashboardTable.beginUpdates()
+            self.dashboardTable.endUpdates()
+            UIView.animate(withDuration:0.2, delay: 0, options: .curveEaseIn, animations: { () -> Void in
+                var origin = cell1.frame.origin
+                origin.y -= cell1.frame.size.height
+                //self.dashboardTable.contentOffset = origin
+            }, completion: { (success) in
                 self.dashboardTable.beginUpdates()
                 self.dashboardTable.endUpdates()
-                openCell.removeAll()
-                if indexPath.row == 1 {
-                    if dueTodayArray.count == 0{
-                        self.dashboardTable.isScrollEnabled = true
-                        self.view.showToast(toastMessage: "No DROs due today ", duration: 1.0)
-                    }else{
-                        let cell1 = cell as! DashboardDueTodayCell
-                        self.dashboardTable.isScrollEnabled = false
-                        self.openCell.append("\(indexPath.row)")
-                        NSLayoutConstraint.activate([cell1.bottomConstrient])
-                        expandCellAnimation(cell: cell1, duration: 0.2 )
-                    }
-                }else if indexPath.row == 2 {
-                    if upcomingArray.count == 0{
-                        self.dashboardTable.isScrollEnabled = true
-                        self.view.showToast(toastMessage: "No upcoming DROs ", duration: 1.0)
-                    }else{
-                        let cell1 = cell as! DashboardUpcomingCell
-                        self.dashboardTable.isScrollEnabled = false
-                        openCell.append("\(indexPath.row)")
-                        NSLayoutConstraint.activate([cell1.bottomConstrient])
-                        expandCellAnimation(cell: cell1, duration: 0.3)
-                    }
-                }else if indexPath.row == 3 {
-                    let timelineData = DatabaseHandler.getAllTimeline()
-                    if timelineData.count == 0{
-                        self.dashboardTable.isScrollEnabled = true
-                        self.view.showToast(toastMessage: "No data available", duration: 1.0)
-                    }else{
-                        self.dashboardTable.isScrollEnabled = false
-                        let cell1 = cell as! DashboardTimelineCell
-                        NSLayoutConstraint.activate([cell1.bottomConstrient])
-                        openCell.append("\(indexPath.row)")
-                        expandCellAnimation(cell: cell1, duration: 0.4)
-                    }
-                }else if indexPath.row == 4 {
-                    let cell1 = cell as! DashboardStatisticsCell
-                    openCell.append("\(indexPath.row)")
-                    NSLayoutConstraint.activate([cell1.bottomConstrient])
-                    self.dashboardTable.beginUpdates()
-                    self.dashboardTable.endUpdates()
-                    UIView.animate(withDuration:0.2, delay: 0, options: .curveEaseIn, animations: { () -> Void in
-                        var origin = cell1.frame.origin
-                        origin.y -= cell1.frame.size.height
-                        //self.dashboardTable.contentOffset = origin
-                    }, completion: { (success) in
-                        self.dashboardTable.beginUpdates()
-                        self.dashboardTable.endUpdates()
-                        cell.unfold(true, animated: true) {
-                        }
-                    })
+                cell.unfold(true, animated: true) {
                 }
-            }
+            })
         }
     }
     
@@ -752,16 +790,16 @@ extension DashboardController : UITableViewDelegate{
         }
         UIView.animate(withDuration:duration, delay: 0, options: .curveEaseIn, animations: { () -> Void in
             self.dashboardTable.contentOffset = cell.frame.origin
-      
+            
         }, completion: { (success) in
             self.dashboardTable.beginUpdates()
             self.dashboardTable.endUpdates()
             cell.unfold(true, animated: true) {}
-
+            
         })
     }
     
-    func collapseCellAnimation(cell :UITableViewCell , duration :TimeInterval)  {
+    func collapseCellAnimation(cell :UITableViewCell , duration :TimeInterval, completion: (() -> Void)? = nil)  {
         
         guard let cell = cell as? FoldingCell else {
             return // or fatalError() or whatever
@@ -781,8 +819,11 @@ extension DashboardController : UITableViewDelegate{
             }
             self.dashboardTable.beginUpdates()
             self.dashboardTable.endUpdates()
+            if let complitionBlock = completion{
+                complitionBlock()
+            }
         }
-       
+        
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

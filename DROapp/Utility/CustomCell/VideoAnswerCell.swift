@@ -195,7 +195,7 @@ class VideoAnswerCell: UITableViewCell {
             let thumbnail = UIImage(cgImage: cgImage)
             return thumbnail
         } catch let error {
-            print("*** Error generating thumbnail: \(error.localizedDescription)")
+            debugPrint("*** Error generating thumbnail: \(error.localizedDescription)")
             return nil
         }
         
@@ -231,7 +231,7 @@ class VideoAnswerCell: UITableViewCell {
                 let _ = DatabaseHandler.insertIntoMedia(media: media)
             }
         } catch {
-            print(error)
+            debugPrint(error)
         }
      
     }

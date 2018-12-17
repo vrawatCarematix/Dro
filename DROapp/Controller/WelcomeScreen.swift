@@ -8,6 +8,7 @@
 
 import UIKit
 import UserNotifications
+import NotificationCenter
 class WelcomeScreen: UIViewController {
 
     //MARK: - Outlets
@@ -31,13 +32,14 @@ class WelcomeScreen: UIViewController {
         super.viewDidLoad()
         initialiseData()
         deleteOldData()
+        NCWidgetController().setHasContent(false, forWidgetWithBundleIdentifier: "com.carematix.DRO.DROWidget")
         let currentLocale = NSLocale.current
         if let countryCode = currentLocale.regionCode   {
-            print(countryCode)
+            debugPrint(countryCode)
         }
-        print(TimeZone.current.identifier)
+        debugPrint(TimeZone.current.identifier)
         if let language = Bundle.main.preferredLocalizations.first{
-            print(language)
+            debugPrint(language)
         }
         kUserDefault.set(englishJson, forKey: kDefaultEnglishDictionary)
     }

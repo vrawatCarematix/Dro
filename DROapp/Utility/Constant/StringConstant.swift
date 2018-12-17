@@ -19,6 +19,8 @@ enum DashboardCellType{
     case  Statistics
 }
 
+let AppGroupID = "group.com.carematix.DRO"
+
 let kExpandDuration = 0.09
 
 let kOpen = "Open"
@@ -28,6 +30,7 @@ let kPrivacy = "https://wellness.blipcare.com/portal/f?p=100:4065"
 let kBuyDevice = "https://www.blipcare.com"
 
 let kUserDefault = UserDefaults.standard
+let kNotificationToken = "NotificationToken"
 
 let kAlreadyHaveAccount = "AlreadyHaveAccount"
 let kSignUp = "SIGNUP"

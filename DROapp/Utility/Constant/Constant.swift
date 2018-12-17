@@ -338,12 +338,12 @@ class CommonMethods {
       
         
         if fileManager.fileExists(atPath: filePath) {
-            print("FILE AVAILABLE")
-            print(fileURL.path)
+            debugPrint("FILE AVAILABLE")
+            debugPrint(fileURL.path)
             return fileURL
         } else {
-            print("FILE NOT AVAILABLE")
-            print(url.path)
+            debugPrint("FILE NOT AVAILABLE")
+            debugPrint(url.path)
             
             if let visibleController = UIApplication.shared.keyWindow?.visibleViewController() , visibleController.isKind(of: QuestionnaireController.self){
                 
@@ -372,11 +372,10 @@ class CommonMethods {
                         // DatabaseHandler.insert(startDate: Int(timestamp), mediaUrl: message, endDate: Int(endDate))
                     }else{
                         if let visibleController = UIApplication.shared.keyWindow?.visibleViewController() , visibleController.isKind(of: QuestionnaireController.self){
-                            print("here")
                             visibleController.view.showToast(toastMessage: "Please try again later", duration: 2.0)
                             
                         }
-                        print("fail")
+                        debugPrint("fail")
                     }
                     
                 }

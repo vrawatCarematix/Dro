@@ -68,7 +68,6 @@ class QuestionnaireController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSetup()
-      print(letters)
         if let _ = survey.startTime ,   survey.startTime != 0 {
             
         }else{
@@ -405,17 +404,13 @@ class QuestionnaireController: UIViewController {
             CustomActivityIndicator.startAnimating( message: "Saving...")
             submitSurvey(survey) { (success, response, message) in
                 DispatchQueue.main.async {
-                    CustomActivityIndicator.stopAnimating()
                     if success{
                         self.survey.isUploaded = 1
                         var _ = DatabaseHandler.insertIntoSurveyData(survey: self.survey)
                         var _ = DatabaseHandler.updateSchedule(progressStatus: self.survey.progressStatus ?? "", isDeclined: self.survey.declined ?? 0 , surveySessionId: self.survey.surveySessionId ?? 0 , actualEndTime: 0 , percentageCompleted : self.survey.percentageComplete ?? 0 )
-                        if self.backToPrevious {
-                            self.navigationController?.popViewController(animated: true)
-                        }else{
-                            self.navigationController?.popToRootViewController(animated: true)
-                        }
+                        self.getTimeLineData()
                     }else{
+                        CustomActivityIndicator.stopAnimating()
                         self.survey.isUploaded = 0
                         var _ = DatabaseHandler.insertIntoSurveyData(survey: self.survey)
                         var _ = DatabaseHandler.updateSchedule(progressStatus: self.survey.progressStatus ?? "", isDeclined: self.survey.declined ?? 0 , surveySessionId: self.survey.surveySessionId ?? 0 , actualEndTime: 0 , percentageCompleted : self.survey.percentageComplete ?? 0 )
@@ -619,7 +614,7 @@ class QuestionnaireController: UIViewController {
                     }
                     else if question.answerType == ViewType.kSlider.rawValue || question.answerType == "SLIDER_WITH_SCALE" {
                         let cell = questionTable.cellForRow(at: IndexPath(row: row, section: 0)) as!  SliderAnswerCell
-                        if cell.seekSlider.selectedMaximum != 0{
+                        if  !cell.seekSlider.hideLabels {
                             userAnswer.answerFreeText = "\(Int(cell.seekSlider.selectedMaximum))"
                             enableNext = true
                         }
@@ -703,7 +698,7 @@ class QuestionnaireController: UIViewController {
                         CustomActivityIndicator.startAnimating( message: "Submitting...")
                         submitSurvey(survey) { (success, response, message) in
                             DispatchQueue.main.async {
-                                CustomActivityIndicator.stopAnimating()
+                               // CustomActivityIndicator.stopAnimating()
                                 if success{
                                     self.survey.isUploaded = 1
                                     var _ = DatabaseHandler.insertIntoSurveyData(survey: self.survey)
@@ -730,6 +725,7 @@ class QuestionnaireController: UIViewController {
                                         self.navigationController?.pushViewController(congratullationController ,  animated :  true)
                                     }
                                 }else{
+                                    CustomActivityIndicator.stopAnimating()
                                     self.survey.isUploaded = 0
                                     var _ = DatabaseHandler.insertIntoSurveyData(survey: self.survey)
                                     var _ = DatabaseHandler.updateSchedule(progressStatus: self.survey.progressStatus ?? "", isDeclined: self.survey.declined ?? 0 , surveySessionId: self.survey.surveySessionId ?? 0 , actualEndTime: self.survey.endTime ?? 0 , percentageCompleted : self.survey.percentageComplete ?? 0 )
@@ -810,8 +806,9 @@ class QuestionnaireController: UIViewController {
             questionTable.isScrollEnabled = true
         }
     }
+    
     func getTimeLineData()  {
-        WebServiceMethods.sharedInstance.getTimeline(0, toRow: 20){ (success, response, message) in
+        WebServiceMethods.sharedInstance.getTimeline(0, toRow: 200){ (success, response, message) in
             DispatchQueue.main.async {
                 CustomActivityIndicator.stopAnimating()
                 if success {
@@ -821,6 +818,11 @@ class QuestionnaireController: UIViewController {
                         timelineArray.append(timelineModel)
                     }
                     let _ = DatabaseHandler.insertIntoTimeline(timelineArray: timelineArray)
+                    if self.backToPrevious {
+                        self.navigationController?.popViewController(animated: true)
+                    }else{
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }
                 }
             }
         }
@@ -1256,8 +1258,12 @@ extension QuestionnaireController : UITableViewDataSource{
                     let cell = tableView.dequeueReusableCell(withIdentifier: ReusableIdentifier.SliderAnswerCell, for: indexPath as IndexPath) as! SliderAnswerCell
                     if let rating = userAnswer.answerFreeText {
                         cell.seekSlider.selectedMaximum = Float(rating) ?? 0
+                        cell.seekSlider.hideLabels = false
+
                     }else{
                         cell.seekSlider.selectedMaximum  = 0
+                        cell.seekSlider.hideLabels = true
+
                     }
                     cell.selectionStyle = .none
                     return cell

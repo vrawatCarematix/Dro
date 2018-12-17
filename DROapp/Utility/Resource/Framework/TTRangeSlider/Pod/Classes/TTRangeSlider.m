@@ -210,7 +210,7 @@ static const CGFloat kLabelsFontSize = 12.0f;
     CGColorRef color = self.tintColor.CGColor;
 
     [CATransaction begin];
-    [CATransaction setAnimationDuration:0.5];
+    [CATransaction setAnimationDuration:0];
     [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut] ];
     self.sliderLine.backgroundColor = color;
     if (self.handleColor == nil) {
@@ -469,7 +469,7 @@ static const CGFloat kLabelsFontSize = 12.0f;
 - (void)animateHandle:(CALayer*)handle withSelection:(BOOL)selected {
     if (selected){
         [CATransaction begin];
-        [CATransaction setAnimationDuration:0.3];
+        [CATransaction setAnimationDuration:0];
         [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut] ];
         handle.transform = CATransform3DMakeScale(self.selectedHandleDiameterMultiplier, self.selectedHandleDiameterMultiplier, 1);
 
@@ -482,7 +482,7 @@ static const CGFloat kLabelsFontSize = 12.0f;
 
     } else {
         [CATransaction begin];
-        [CATransaction setAnimationDuration:0.3];
+        [CATransaction setAnimationDuration:0];
         [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut] ];
         handle.transform = CATransform3DIdentity;
 
@@ -514,7 +514,7 @@ static const CGFloat kLabelsFontSize = 12.0f;
     struct CGColor *color = self.tintColor.CGColor;
 
     [CATransaction begin];
-    [CATransaction setAnimationDuration:0.5];
+    [CATransaction setAnimationDuration:0];
     [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut] ];
     self.sliderLine.backgroundColor = color;
 

@@ -36,31 +36,31 @@ class WeekdaysView: UIView {
     @objc func setText()  {
         var daysArr = ["S", "M", "T", "W", "T", "F", "S"]
         
-        if let surveySchedule = kUserDefault.value(forKey: ksurvey_schedule) as? [String : Any]
-        {
-            daysArr.removeAll()
-            if let dayString = surveySchedule["28"] as? String{
-                daysArr.append(dayString)
-            }
-            if let dayString = surveySchedule["29"] as? String{
-                daysArr.append(dayString)
-            }
-            if let dayString = surveySchedule["30"] as? String{
-                daysArr.append(dayString)
-            }
-            if let dayString = surveySchedule["31"] as? String{
-                daysArr.append(dayString)
-            }
-            if let dayString = surveySchedule["32"] as? String{
-                daysArr.append(dayString)
-            }
-            if let dayString = surveySchedule["33"] as? String{
-                daysArr.append(dayString)
-            }
-            if let dayString = surveySchedule["34"] as? String{
-                daysArr.append(dayString)
-            }
-        }
+//        if let surveySchedule = kUserDefault.value(forKey: ksurvey_schedule) as? [String : Any]
+//        {
+//            daysArr.removeAll()
+//            if let dayString = surveySchedule["28"] as? String{
+//                daysArr.append(dayString)
+//            }
+//            if let dayString = surveySchedule["29"] as? String{
+//                daysArr.append(dayString)
+//            }
+//            if let dayString = surveySchedule["30"] as? String{
+//                daysArr.append(dayString)
+//            }
+//            if let dayString = surveySchedule["31"] as? String{
+//                daysArr.append(dayString)
+//            }
+//            if let dayString = surveySchedule["32"] as? String{
+//                daysArr.append(dayString)
+//            }
+//            if let dayString = surveySchedule["33"] as? String{
+//                daysArr.append(dayString)
+//            }
+//            if let dayString = surveySchedule["34"] as? String{
+//                daysArr.append(dayString)
+//            }
+//        }
         if daysArr.count < 7 {
             daysArr = ["S", "M", "T", "W", "T", "F", "S"]
         }

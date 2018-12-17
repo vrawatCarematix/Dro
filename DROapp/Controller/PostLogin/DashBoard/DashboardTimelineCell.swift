@@ -102,6 +102,7 @@ class DashboardTimelineCell: FoldingCell {
             DispatchQueue.main.async {
             //    CustomActivityIndicator.stopAnimating()
                 self.refreshControl.endRefreshing()
+                self.expendTable.contentOffset = CGPoint.zero
                 if success {
                     self.timelineArray.removeAll()
                     for timelineData in response{
@@ -129,8 +130,8 @@ class DashboardTimelineCell: FoldingCell {
                     rect.origin.y = cardviewHeight
                     heightConstant.constant = newSize.height
                     if (maximumHeight - cardviewHeight  ) > 10 && newSize.height > ( maximumHeight - cardviewHeight ) {
-                        heightConstant.constant = maximumHeight - cardviewHeight
-                        rect.size.height = maximumHeight - cardviewHeight
+                        heightConstant.constant = maximumHeight - cardviewHeight + 25
+                        rect.size.height = maximumHeight - cardviewHeight + 25
                     }else{
                         heightConstant.constant = newSize.height
                         rect.size.height = newSize.height
@@ -259,6 +260,7 @@ extension DashboardTimelineCell : UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return UITableView.automaticDimension
     }
+    
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         return 60
     }

@@ -123,8 +123,6 @@ extension StudyController : UITableViewDataSource{
                 
                 cell?.selectionStyle = .none
                 return cell!
-                
-                
             }else{
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: ReusableIdentifier.TermTextCell, for: indexPath)  as? TermTextCell
@@ -179,8 +177,8 @@ extension StudyController : UITableViewDelegate{
             cell?.readMoreButton.setTitle("", for: .normal)
             cell?.readMoreButton.isUserInteractionEnabled = false
             if let topConstraint = cell?.buttonTopConstrient , let bottomConstraint = cell?.labelBottomConstrient{
-                NSLayoutConstraint.activate([bottomConstraint])
                 NSLayoutConstraint.deactivate([topConstraint])
+                NSLayoutConstraint.activate([bottomConstraint])
             }
         }
         cell?.readMoreButton.tag = section

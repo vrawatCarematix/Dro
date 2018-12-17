@@ -13,6 +13,7 @@ class SliderAnswerCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         seekSlider.maxLabelFont = UIFont.init(name: kSFRegular, size: CGFloat(self.getCustomFontSize(size: 14)))
+        seekSlider.delegate = self
         // Initialization code
     }
 
@@ -21,4 +22,11 @@ class SliderAnswerCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+}
+
+extension SliderAnswerCell : TTRangeSliderDelegate{
+    
+    func didStartTouches(in sender: TTRangeSlider!) {
+            sender.hideLabels = false
+    }
 }

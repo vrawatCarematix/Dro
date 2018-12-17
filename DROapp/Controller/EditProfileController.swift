@@ -8,7 +8,6 @@
 
 import UIKit
 import IQKeyboardManagerSwift
-import Crashlytics
 
 class EditProfileController: UIViewController {
 
@@ -16,7 +15,7 @@ class EditProfileController: UIViewController {
     var titleArray = [String]()
     var typeArray = ["User Name" , "text" , "text" , "date" , "Ethnicity" , "textview" ]
     var profileArray = [ProfileModel]()
-    var removeTitle = [ "LAST_NAME" , "IMAGE_UPLOAD"]
+    var removeTitle = ["LAST_NAME" , "IMAGE_UPLOAD"]
     var countArray = [Int]()
     var legalStatmentArray = [ConfigDatabaseModel]()
 
@@ -26,7 +25,6 @@ class EditProfileController: UIViewController {
     @IBOutlet var buttonDone: UIButton!
     @IBOutlet var labelTitle: UILabel!
     
-    
     //Mark:- View Life Cycle
 
     override func viewDidLoad() {
@@ -35,24 +33,19 @@ class EditProfileController: UIViewController {
         buttonDone.setCustomFont()
         legalStatmentArray = DatabaseHandler.getAllConfig(kPersonalDetails)
         profileTable.allowsSelection = true
-
         self.titleArray = self.profileArray.compactMap({ $0.fieldType})
         for title in self.removeTitle {
             if let index = self.titleArray.index(of: title) {
                 self.titleArray.remove(at: index)
             }
         }
-        
         self.profileTable.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
-        
         let dropdownSingleSelectionNib = UINib(nibName: ReusableIdentifier.DropdownSingleSelectionCell, bundle: nil)
         profileTable.register(dropdownSingleSelectionNib, forCellReuseIdentifier: ReusableIdentifier.DropdownSingleSelectionCell)
         let dropdownMultiSelectionNib = UINib(nibName: ReusableIdentifier.DropdownMultiSelectionCell, bundle: nil)
         profileTable.register(dropdownMultiSelectionNib, forCellReuseIdentifier: ReusableIdentifier.DropdownMultiSelectionCell)
-        // Do any additional setup after loading the view.
         settext()
     }
-
     
     func settext()  {
         labelTitle.text = kEditProfile.localisedString()
@@ -73,7 +66,6 @@ class EditProfileController: UIViewController {
         }
     }
 
-
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -84,16 +76,14 @@ class EditProfileController: UIViewController {
     }
     
     func saveProfileData() {
-
         CustomActivityIndicator.startAnimating( message: kUpdating.localisedString() + "...")
         WebServiceMethods.sharedInstance.saveProfileData(profileArray){ (success, response, message) in
             DispatchQueue.main.async {
-                print(response)
+                debugPrint(response)
                 CustomActivityIndicator.stopAnimating()
                 if success {
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: kReloadUserData), object: nil)
-
-                     self.navigationController?.popViewController(animated: true)
+                    self.navigationController?.popViewController(animated: true)
                 }
                 else{
                     self.showErrorAlert(titleString: kAlert.localisedString(), message: message)
@@ -118,14 +108,11 @@ extension EditProfileController : UITableViewDataSource{
         }else{
             return 1
         }
-        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return titleArray.count
-
     }
-    
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         tableView.allowsSelection = true
@@ -141,8 +128,12 @@ extension EditProfileController : UITableViewDataSource{
                 if defaultValue.componentType == kComponentCheckBox{
                     let cell = tableView.dequeueReusableCell(withIdentifier: ReusableIdentifier.DropdownMultiSelectionCell, for: indexPath)  as? DropdownMultiSelectionCell
                         cell?.labelData.text =   defaultValue.valuesArray[indexPath.row - 1]
-                    if (profileData.value?.lowercased().contains(defaultValue.valuesArray[indexPath.row - 1].lowercased()))!  {
+                    if let profileValue = profileData.value {
+                        if (profileValue.lowercased().contains(defaultValue.valuesArray[indexPath.row - 1].lowercased()))  {
                         cell?.imgSelection.image = #imageLiteral(resourceName: "tickOptionOn")
+                        }else{
+                            cell?.imgSelection.image = #imageLiteral(resourceName: "tickOptionOff")
+                        }
                     }else{
                         cell?.imgSelection.image = #imageLiteral(resourceName: "tickOptionOff")
                     }
@@ -150,9 +141,7 @@ extension EditProfileController : UITableViewDataSource{
                     return cell!
                 }else{
                     let cell = tableView.dequeueReusableCell(withIdentifier: ReusableIdentifier.DropdownSingleSelectionCell, for: indexPath)  as? DropdownSingleSelectionCell
-                    
                         cell?.labelData.text =                     defaultValue.valuesArray[indexPath.row - 1]
-                    
                     if cell?.labelData.text?.lowercased() == profileData.value?.lowercased() {
                         cell?.imgSelection.image = #imageLiteral(resourceName: "radioOptionOn")
                     }else{
@@ -167,7 +156,6 @@ extension EditProfileController : UITableViewDataSource{
                 let cell = tableView.dequeueReusableCell(withIdentifier: ReusableIdentifier.EditProfileNameCell, for: indexPath)  as? EditProfileNameCell
                 cell?.labelUsername.text = "FIRST_NAME".replacingOccurrences(of: "_", with: " ").capitalized
                 cell?.labelLastName.text = "LAST_NAME".replacingOccurrences(of: "_", with: " ").capitalized
-                
                 let defaultValue = legalStatmentArray.filter({ $0.fieldType == "FIRST_NAME" })
                 if defaultValue.count > 0{
                     cell?.textfieldFirstName.placeholder = defaultValue[0].placeHolder
@@ -177,11 +165,9 @@ extension EditProfileController : UITableViewDataSource{
                 cell?.delegate = self
                 if self.profileArray.filter({ $0.fieldType == "FIRST_NAME" }).count > 0 , let firstName = self.profileArray.filter({ $0.fieldType == "FIRST_NAME" })[0].value {
                     cell?.textfieldFirstName.text = firstName
-                    
                 }else{
                     cell?.textfieldFirstName.text = ""
                 }
-                
                 let defaultValue1 = legalStatmentArray.filter({ $0.fieldType == "LAST_NAME" })
                 if defaultValue1.count > 0{
                     cell?.textfieldLastName.placeholder = defaultValue1[0].placeHolder
@@ -192,11 +178,10 @@ extension EditProfileController : UITableViewDataSource{
                 }else{
                     cell?.textfieldLastName.text = ""
                 }
-               
                 if self.profileArray.filter({ $0.fieldType == "IMAGE_UPLOAD" }).count > 0 , let imageBase64 = self.profileArray.filter({ $0.fieldType == "IMAGE_UPLOAD" })[0].value {
                     if let dataDecoded = Data(base64Encoded: imageBase64, options: Data.Base64DecodingOptions(rawValue: NSData.Base64DecodingOptions.RawValue(0))){
                         let selectedImageSize:Int = dataDecoded.count
-                        print("Image Size: %f KB", selectedImageSize / 1024)
+                        debugPrint("Image Size: %f KB", selectedImageSize / 1024)
                         if let image =  UIImage(data: dataDecoded){
                             cell?.imgProfile.image = image
                         }
@@ -238,7 +223,6 @@ extension EditProfileController : UITableViewDataSource{
             }else if titleType  == "ABOUT"  {
                 let cell = tableView.dequeueReusableCell(withIdentifier: ReusableIdentifier.EditProfileTextViewCell, for: indexPath)  as? EditProfileTextViewCell
                 cell?.delegate = self
-              
                 cell?.textViewData.tag = indexPath.row
                 cell?.selectionStyle = .none
                 return cell!
@@ -256,21 +240,18 @@ extension EditProfileController : UITableViewDataSource{
                 return cell!
             }
         }
-        
         var cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
         if !(cell != nil) {
             cell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: "Cell")
         }
         return cell!
-
-        
     }
 }
 
 extension EditProfileController : UITableViewDelegate{
-    
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.view.endEditing(true)
         if indexPath.row > 0{
             let titleType = titleArray[indexPath.section]
             let defaultValue = self.legalStatmentArray.filter({ $0.fieldType == titleType })[0]
@@ -278,9 +259,12 @@ extension EditProfileController : UITableViewDelegate{
 
             if defaultValue.componentType == kComponentCheckBox{
                 let cell = tableView.cellForRow(at: indexPath) as? DropdownMultiSelectionCell
-                if  (profileData.value?.lowercased().contains(defaultValue.valuesArray[indexPath.row - 1].lowercased()))!  {
-                    cell?.imgSelection.image = #imageLiteral(resourceName: "tickOptionOff")
-
+                if let profileValue = profileData.value {
+                    if  (profileValue.lowercased().contains(defaultValue.valuesArray[indexPath.row - 1].lowercased()))  {
+                        cell?.imgSelection.image = #imageLiteral(resourceName: "tickOptionOff")
+                    }else{
+                        cell?.imgSelection.image = #imageLiteral(resourceName: "tickOptionOn")
+                    }
                 }else{
                     cell?.imgSelection.image = #imageLiteral(resourceName: "tickOptionOn")
                 }
@@ -334,10 +318,11 @@ extension EditProfileController : EditProfileNameCellDelegate{
 extension EditProfileController : EditProfileDateCellDelegate{
     
     func saveDate(date: String, cell: EditProfileDateCell) {
-        let indexPath = profileTable.indexPath(for: cell)
-        let titleType = titleArray[(indexPath?.section)!]
-        let profileData = self.profileArray.filter({ $0.fieldType == titleType })[0]
-        profileData.value = date
+        if let indexPath = profileTable.indexPath(for: cell){
+            let titleType = titleArray[(indexPath.section)]
+            let profileData = self.profileArray.filter({ $0.fieldType == titleType })[0]
+            profileData.value = date
+        }
     }
     
 }
@@ -345,17 +330,15 @@ extension EditProfileController : EditProfileDateCellDelegate{
 extension EditProfileController :UITextFieldDelegate{
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let cell = textField.superview?.superview as? EditProfileTextCell  {
-            let indexPath = profileTable.indexPath(for: cell)
-            let titleType = titleArray[(indexPath?.section)!]
-            let profileData = self.profileArray.filter({ $0.fieldType == titleType })[0]
-            
-            if let text =  textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) , text != ""{
-                profileData.value = text
-            }else{
-                profileData.value = " "
-
+            if let indexPath = profileTable.indexPath(for: cell){
+                let titleType = titleArray[(indexPath.section)]
+                let profileData = self.profileArray.filter({ $0.fieldType == titleType })[0]
+                if let text =  textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) , text != ""{
+                    profileData.value = text
+                }else{
+                    profileData.value = " "
+                }
             }
- 
         }else  if let cell = textField.superview?.superview as? EditProfileNameCell {
             let profileData = self.profileArray.filter({ $0.fieldType == "FIRST_NAME" })[0]
             profileData.value = cell.textfieldFirstName.text
@@ -385,22 +368,26 @@ extension EditProfileController :EditProfileTextViewCellDelegate {
 }
 extension EditProfileController :EditProfileDropdownCellDelegate{
     func clickedOnButton(_ sender: UIButton) {
+        self.view.endEditing(true)
         guard let cell = sender.superview?.superview as? EditProfileDropdownCell else {
             return // or fatalError() or whatever
         }
-        let indexPath = profileTable.indexPath(for: cell)
         
-        if let index = countArray.index(of: (indexPath?.section)!){
-            countArray.remove(at: index)
-        }else{
-            countArray.append((indexPath?.section)!)
-        }
-        profileTable.beginUpdates()
-        profileTable.reloadSections([(indexPath?.section)!], with: .automatic)
-        profileTable.endUpdates()
-        if let _ = countArray.index(of: (indexPath?.section)!){
-             profileTable.scrollToRow(at: indexPath!, at: .top, animated: true)
-        }
         
+        if let indexPath = profileTable.indexPath(for: cell){
+             let section = indexPath.section
+            if let index = countArray.index(of: section){
+                countArray.remove(at: index)
+            }else{
+                countArray.append(section)
+            }
+            profileTable.beginUpdates()
+            profileTable.reloadSections([section], with: .automatic)
+            profileTable.endUpdates()
+            if let _ = countArray.index(of: section){
+                profileTable.scrollToRow(at: indexPath, at: .top, animated: true)
+            }
+        }
+
     }
 }

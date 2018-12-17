@@ -255,7 +255,7 @@ extension ImageAnswerCell :UIImagePickerControllerDelegate ,  UINavigationContro
             let _ = DatabaseHandler.insertIntoMedia(media: media)
             
         }catch{
-            print(error)
+            debugPrint(error)
         }
     }
 }

@@ -30,6 +30,28 @@ class TrainingSuccessController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if CheckNetworkUsability.sharedInstance().checkInternetConnection() {
+            getTimeLineData()
+        }else{
+            CustomActivityIndicator.stopAnimating()
+        }
+    }
+    func getTimeLineData()  {
+        WebServiceMethods.sharedInstance.getTimeline(0, toRow: 200){ (success, response, message) in
+            DispatchQueue.main.async {
+                CustomActivityIndicator.stopAnimating()
+                if success {
+                    var timelineArray = [TimelineModel]()
+                    for timelineData in response{
+                        let timelineModel = TimelineModel(jsonObject: timelineData)
+                        timelineArray.append(timelineModel)
+                    }
+                    let _ = DatabaseHandler.insertIntoTimeline(timelineArray: timelineArray)
+                }
+            }
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

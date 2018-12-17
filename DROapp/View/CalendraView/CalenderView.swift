@@ -52,7 +52,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     var presentMonthIndex = 0
     var presentYear = 0
     var todaysDate = 0
-    var firstWeekDayOfMonth = 0   //(Sunday-Saturday 1-7)
+    var firstWeekDayOfMonth = 7   //(Sunday-Saturday 1-7)
   
     var bookedSlotDate = [33]
     
@@ -110,7 +110,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1
     }
     
@@ -229,7 +228,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     
     func getFirstWeekDay() -> Int {
         let day = ("\(currentYear)-\(currentMonthIndex)-01".date?.firstDayOfTheMonth.weekday)!
-        return day == 7 ? 1 : day
+        return day == 7 ? 7 : day
     }
     
     func didChangeMonth(monthIndex: Int, year: Int) {
@@ -247,12 +246,12 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         //end
         
         firstWeekDayOfMonth=getFirstWeekDay()
-        
-        myCollectionView.reloadData()
+     
+      //  myCollectionView.reloadData()
         
        // monthView.btnLeft.isEnabled = !(currentMonthIndex == presentMonthIndex && currentYear == presentYear)
         delegate?.didChangeMonth(monthIndex: monthIndex, year: year, calender: self)
-
+     
     }
     
     func setupViews() {
@@ -276,7 +275,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             weekdaysView.topAnchor.constraint(equalTo: monthView.bottomAnchor, constant: 10 ).isActive = true
         }else{
             weekdaysView.topAnchor.constraint(equalTo: monthView.bottomAnchor).isActive=true
-            
         }
         weekdaysView.leftAnchor.constraint(equalTo: leftAnchor).isActive=true
         weekdaysView.rightAnchor.constraint(equalTo: rightAnchor).isActive=true
@@ -284,7 +282,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         
         addSubview(myCollectionView)
         if UIDevice.current.userInterfaceIdiom == .pad{
-            
             myCollectionView.topAnchor.constraint(equalTo: weekdaysView.bottomAnchor, constant: 10).isActive=true
         }else{
             myCollectionView.topAnchor.constraint(equalTo: weekdaysView.bottomAnchor, constant: 0).isActive=true
@@ -309,7 +306,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     let myCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        
         let myCollectionView=UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         myCollectionView.showsHorizontalScrollIndicator = false
         myCollectionView.translatesAutoresizingMaskIntoConstraints=false
@@ -328,7 +324,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
 protocol CalenderDelegate {
     func didTapDate(date:String, available:Bool)
     func didChangeMonth(monthIndex: Int, year: Int , calender : CalenderView)
-
 }
 class dateCVCell: UICollectionViewCell {
     override init(frame: CGRect) {

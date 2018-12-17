@@ -138,6 +138,7 @@
                                                         <constraint firstAttribute="trailing" secondItem="oRE-qL-6er" secondAttribute="trailing" constant="30" id="VHq-oF-0Ru"/>
                                                         <constraint firstItem="oRE-qL-6er" firstAttribute="top" secondItem="Fzh-m6-CBu" secondAttribute="bottom" id="Vwd-fz-Jlu"/>
                                                         <constraint firstItem="9bP-HU-gwW" firstAttribute="top" secondItem="oRE-qL-6er" secondAttribute="bottom" constant="5" id="Xve-4T-83U"/>
+                                                        <constraint firstAttribute="bottom" secondItem="oRE-qL-6er" secondAttribute="bottom" constant="5" id="ZRY-bt-QZ6"/>
                                                         <constraint firstItem="L17-at-eZO" firstAttribute="leading" secondItem="cw2-5u-N2m" secondAttribute="leading" id="gKa-el-RUn"/>
                                                         <constraint firstItem="oRE-qL-6er" firstAttribute="leading" secondItem="cw2-5u-N2m" secondAttribute="leading" constant="30" id="rs8-mb-MTG"/>
                                                         <constraint firstAttribute="bottom" secondItem="9bP-HU-gwW" secondAttribute="bottom" constant="5" id="t55-hl-Ph6"/>
@@ -154,6 +155,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="buttonTopConstrient" destination="Xve-4T-83U" id="GPS-5W-SPg"/>
+                                            <outlet property="labelBottomConstrient" destination="ZRY-bt-QZ6" id="sHM-sB-cqO"/>
                                             <outlet property="labelDetail" destination="oRE-qL-6er" id="UUL-AU-pAw"/>
                                             <outlet property="labelHeader" destination="Fzh-m6-CBu" id="kRL-Qj-Mz7"/>
                                             <outlet property="readMoreButton" destination="9bP-HU-gwW" id="tXS-yN-oEs"/>
@@ -4808,6 +4811,7 @@
                         <outlet property="labelLanguageTitle" destination="9OH-M1-hZE" id="gAa-nD-Oxz"/>
                         <outlet property="labelLogout" destination="aFk-z2-oCu" id="r99-vp-rCe"/>
                         <outlet property="labelName" destination="xhv-np-vVJ" id="esh-9c-OUG"/>
+                        <outlet property="labelVersion" destination="zJL-c3-t1m" id="UVB-fZ-lY1"/>
                         <outlet property="languageBackButton" destination="1OW-CW-3Us" id="I5X-Id-gC9"/>
                         <outlet property="languageTable" destination="TOB-PK-Vj1" id="heu-hq-SBH"/>
                         <outlet property="languageView" destination="Bo2-NT-OFv" id="QDV-TE-hhx"/>

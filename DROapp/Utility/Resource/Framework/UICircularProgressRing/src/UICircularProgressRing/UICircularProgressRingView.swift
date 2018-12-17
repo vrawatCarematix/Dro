@@ -109,8 +109,8 @@ import UIKit
     @IBInspectable open var value: CGFloat = 0 {
         didSet {
             if value < minValue {
-                print("Warning in: UICircularProgressRingView.value: Line #\(#line)")
-                print("Attempted to set a value less than minValue, value has been set to minValue.\n")
+                debugPrint("Warning in: UICircularProgressRingView.value: Line #\(#line)")
+                debugPrint("Attempted to set a value less than minValue, value has been set to minValue.\n")
                 self.value = self.minValue
             }
             self.ringLayer.value = self.value

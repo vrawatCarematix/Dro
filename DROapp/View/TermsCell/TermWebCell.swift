@@ -37,7 +37,7 @@ class TermWebCell: UITableViewCell {
                 let scaleHeight = UIScreen.main.nativeBounds.height / UIScreen.main.bounds.height
                 let scaleWidth = UIScreen.main.nativeBounds.width / UIScreen.main.bounds.width
                 let str = "<iframe width=\"" + "\(Int(self.webView.frame.size.width * scaleWidth) )" + "\" height=\""  + "\(Int(self.webView.frame.size.height * scaleHeight))" + "\" src=\""  + (self.webUrl ) +  "\" frameborder=\"0\" allowfullscreen ></iframe>"
-                print(self.webUrl)
+                debugPrint(self.webUrl)
                 self.webView.loadHTMLString(String(format:str), baseURL: nil)
             }
         }

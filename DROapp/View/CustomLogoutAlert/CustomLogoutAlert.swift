@@ -74,7 +74,7 @@ class CustomLogoutAlert: UIView {
             
             WebServiceMethods.sharedInstance.logout{ (success, response, message) in
                 DispatchQueue.main.async {
-                    print(response)
+                    debugPrint(response)
                     CustomActivityIndicator.stopAnimating()
                     if success {
                         self.removeFromSuperview()

@@ -386,7 +386,6 @@ open class ExpandableLabel: UILabel {
         if !characterBoundingRect.contains(locationOfTouchInTextContainer) {
             return false
         }
-        
         return NSLocationInRange(Int(indexOfCharacter), targetRange)
     }
     

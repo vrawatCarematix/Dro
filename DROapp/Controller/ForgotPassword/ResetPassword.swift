@@ -102,7 +102,7 @@ class ResetPassword: UIViewController {
         CustomActivityIndicator.startAnimating( message: "Reseting...")
         WebServiceMethods.sharedInstance.reset(emailId, otp: otp, password: textfieldNewPassword.text!.toBase64()) { (success, response, message ,responseHeader) in
             DispatchQueue.main.async {
-                print(response)
+                debugPrint(response)
                 CustomActivityIndicator.stopAnimating()
                 if success {
                     let successChangePassword = MainStoryboard.instantiateViewController(withIdentifier: AppController.SuccessChangePassword) as! SuccessChangePassword

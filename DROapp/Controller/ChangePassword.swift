@@ -212,7 +212,7 @@ class ChangePassword: UIViewController {
         CustomActivityIndicator.startAnimating( message: kUpdating.localisedString() +  "...")
         WebServiceMethods.sharedInstance.changePassword(textfieldOldPassword.text!.toBase64(), newPassword: textfieldNewPassword.text!.toBase64() ) { (success, response, message) in
             DispatchQueue.main.async {
-                print(response)
+                debugPrint(response)
                 CustomActivityIndicator.stopAnimating()
                 if success {
                     let successChangePassword = PostLoginStoryboard.instantiateViewController(withIdentifier: AppController.SuccessChangePassword) as! SuccessChangePassword

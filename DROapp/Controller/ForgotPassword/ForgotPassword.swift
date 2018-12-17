@@ -143,7 +143,7 @@ class ForgotPassword: UIViewController {
         CustomActivityIndicator.startAnimating( message: "Authenticating...")
         WebServiceMethods.sharedInstance.resetPassword(textFieldEmail.text! ){ (success, response, message ,responseHeader) in
             DispatchQueue.main.async {
-                print(response)
+                debugPrint(response)
                 CustomActivityIndicator.stopAnimating()
                 if success {
                     self.buttonVerify.isUserInteractionEnabled = false
@@ -180,7 +180,7 @@ class ForgotPassword: UIViewController {
         CustomActivityIndicator.startAnimating( message: "Verifying...")
         WebServiceMethods.sharedInstance.verifyOtp(textFieldEmail.text!, otp: textfieldOtp.text!) { (success, response, message ,responseHeader) in
             DispatchQueue.main.async {
-                print(response)
+                debugPrint(response)
                 CustomActivityIndicator.stopAnimating()
                 if success {
                     self.timer.invalidate()

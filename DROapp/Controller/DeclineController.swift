@@ -99,7 +99,7 @@ class DeclineController: UIViewController {
                 if let screen =  kUserDefault.value(forKey: kRootScreen) as? String , screen == AppController.ScheduleController{
                      backButtonTitle = "Back to DRO Schedule"
                 }
-                let view = CustomErrorAlert.instanceFromNib(title: "Participation Declined!", message: "Saving locally , as network connection available your data will be synchronize with server.", okButtonTitle: backButtonTitle, type: .error) as? CustomErrorAlert
+                let view = CustomErrorAlert.instanceFromNib(title: "Participation Declined!", message: "You're offline. Saving data locally on your device. Data will get synched as soon as you're back online." , okButtonTitle: backButtonTitle, type: .error) as? CustomErrorAlert
                 view?.delegate = self
                 UIApplication.shared.keyWindow?.addSubview(view!)
             }else{
@@ -107,18 +107,14 @@ class DeclineController: UIViewController {
                 
                 allDeclineSurveyWebService(declinedSurveyArray){ (success,response , message) in
                     DispatchQueue.main.async {
-                        CustomActivityIndicator.stopAnimating()
                         if success {
-                            var backButtonTitle = "Back to Dashboard"
-                            if let screen =  kUserDefault.value(forKey: kRootScreen) as? String , screen == AppController.ScheduleController{
-                                backButtonTitle = "Back to DRO Schedule"
-                            }
+                            self.getTimeLineData()
+
                             
-                            let view = CustomErrorAlert.instanceFromNib(title: "Participation Declined!", message: "You have successfully declined to participate . You are now being redirected to Active DROs list", okButtonTitle: backButtonTitle, type: .error) as? CustomErrorAlert
-                            view?.delegate = self
-                            UIApplication.shared.keyWindow?.addSubview(view!)
                             
                         }else{
+                            CustomActivityIndicator.stopAnimating()
+
                            self.showErrorAlert(titleString: kAlert.localisedString(), message: message)
                         }
                     }
@@ -139,6 +135,30 @@ class DeclineController: UIViewController {
         chooseDecline.show()
     }
     
+   
+    func getTimeLineData()  {
+        WebServiceMethods.sharedInstance.getTimeline(0, toRow: 200){ (success, response, message) in
+            DispatchQueue.main.async {
+                CustomActivityIndicator.stopAnimating()
+                if success {
+                    var timelineArray = [TimelineModel]()
+                    for timelineData in response{
+                        let timelineModel = TimelineModel(jsonObject: timelineData)
+                        timelineArray.append(timelineModel)
+                    }
+                    let _ = DatabaseHandler.insertIntoTimeline(timelineArray: timelineArray)
+                }
+                var backButtonTitle = "Back to Dashboard"
+                if let screen =  kUserDefault.value(forKey: kRootScreen) as? String , screen == AppController.ScheduleController{
+                    backButtonTitle = "Back to DRO Schedule"
+                }
+                
+                let view = CustomErrorAlert.instanceFromNib(title: "Participation Declined!", message: "You have successfully declined to participate . You are now being redirected to Active DROs list", okButtonTitle: backButtonTitle, type: .error) as? CustomErrorAlert
+                view?.delegate = self
+                UIApplication.shared.keyWindow?.addSubview(view!)
+            }
+        }
+    }
 }
 
 //MARK:- UITableViewDataSource

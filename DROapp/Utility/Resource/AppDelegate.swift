@@ -17,13 +17,15 @@ import Crashlytics
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     private var reachability:Reachability!;
-    
+    var notificationToken : String?
     var window: UIWindow?
     var reachabilty = Reachability()
     var backgroundTask: UIBackgroundTaskIdentifier = .invalid
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         Fabric.with([Crashlytics.self])
+        debugPrint("didFinishLaunchingWithOptions Method called")
+
         IQKeyboardManager.shared.enable = true
         DropDown.startListeningToKeyboard()
         reachabilty = Reachability.forInternetConnection()
@@ -69,14 +71,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let textAction = UNTextInputNotificationAction(identifier: "Text", title: "Reply", options: [], textInputButtonTitle: "cool", textInputPlaceholder: "Enter")
             
             // Swift
-            let category = UNNotificationCategory(identifier: "UYLReminderCategory",
-                                                  actions: [snoozeAction,deleteAction, textAction],
-                                                  intentIdentifiers: [], options: [])
+            let category = UNNotificationCategory(identifier: "UYLReminderCategory",actions: [snoozeAction,deleteAction, textAction],intentIdentifiers: [], options: [])
             
             // Swift
             center.setNotificationCategories([category])
+            
+    
         }
-       
+        application.registerForRemoteNotifications()
+
         
         UIApplication.shared.statusBarStyle = .lightContent
         UINavigationBar.appearance().backIndicatorImage = #imageLiteral(resourceName: "back")
@@ -122,13 +125,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let networkReachability = notification.object as? Reachability {
             let remoteHostStatus = networkReachability.currentReachabilityStatus()
             if (remoteHostStatus == NotReachable){
-                print("Not Reachable")
+                debugPrint("Not Reachable")
             }else if (remoteHostStatus == ReachableViaWiFi){
-                print("Reachable via Wifi")
+                debugPrint("Reachable via Wifi")
                 syncUserData()
             }else{
                 syncUserData()
-                print("Reachable")
+                debugPrint("Reachable")
             }
         }
     }
@@ -144,7 +147,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     viewcontroller.updateDeclineSurvey({ (success, message) in
                         viewcontroller.uploadSurveyData({ (success, message) in
                             viewcontroller.getMessage(completionHandler: { (success,response , message) in
-                                print(message)
+                                debugPrint(message)
                             })
                         })
                     })
@@ -156,20 +159,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
  
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        print("fail")
+        debugPrint("fail")
+//        let alertController = UIAlertController(title: "Hello", message: "fail", preferredStyle: .alert)
+//        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+//            // Do something with handler block
+//        }))
+//        
+//        let pushedViewControllers = (self.window?.rootViewController as! UINavigationController).viewControllers
+//        let presentedViewController = pushedViewControllers[pushedViewControllers.count - 1]
+//        
+//        presentedViewController.present(alertController, animated: true, completion: nil)
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let tokenParts = deviceToken.map { data -> String in
             return String(format: "%02.2hhx", data)
         }
-        
-        let token = tokenParts.joined()
-        print(token)
+        notificationToken = tokenParts.joined()
+        if let token = notificationToken{
+            kUserDefault.set(token, forKey: kNotificationToken)
+        }
+//        let alertController = UIAlertController(title: "Hello", message: notificationToken ?? "", preferredStyle: .alert)
+//        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+//            // Do something with handler block
+//        }))
+//
+//        let pushedViewControllers = (self.window?.rootViewController as! UINavigationController).viewControllers
+//        let presentedViewController = pushedViewControllers[pushedViewControllers.count - 1]
+//
+//        presentedViewController.present(alertController, animated: true, completion: nil)
+        debugPrint(notificationToken ?? "")
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        print("here")
+        debugPrint("here")
         
     }
     
@@ -188,6 +211,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
+        application.applicationIconBadgeNumber = 0;
+
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
@@ -195,17 +220,126 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        if let session = getQueryStringParameter(url: url.absoluteString, param: "session"){
+            if let sessionId = Int(session) , sessionId != 0{
+                getSurvey(sessionId: sessionId)
+            }
+            debugPrint(session)
+        }
+        
+        return true
+    }
+    
+    func getSurvey(sessionId : Int) {
+//        if dueTodayArray.count == 0 {
+//            return
+//        }
+//        let session = dueTodayArray[indexPath.row]
+//        if session.scheduleType == "UNSCHEDULED" {
+//            let unscheduled = DatabaseHandler.getUncheduledIncompleteSurvey(surveyId: session.surveyID ?? 0)
+//            if unscheduled.count > 0   {
+//                let droHomeController = PostLoginStoryboard.instantiateViewController(withIdentifier :  AppController.DroHomeController) as! DroHomeController
+//                let survey = unscheduled[0]
+//                if let startTime = survey.scheduledStartTime , startTime != 0 {
+//                    if let startTime = survey.scheduledEndTime , startTime != 0 {
+//                    }else{
+//                        if let validity = survey.validity , validity != 0 {
+//                            survey.scheduledEndTime = (validity ) * 1000 + startTime
+//                        }
+//                    }
+//                }else{
+//                    var endTime = Int(Date().timeIntervalSince1970)
+//                    endTime  += TimeZone.current.secondsFromGMT()
+//                    survey.scheduledStartTime = endTime * 1000
+//                    if let startTime = survey.scheduledEndTime , startTime != 0 {
+//                    }else{
+//                        if let validity = survey.validity , validity != 0 {
+//                            survey.scheduledEndTime = ( endTime + validity ) * 1000
+//                        }
+//                    }
+//                }
+//                droHomeController.survey = survey
+//                if let visibleController = UIApplication.shared.keyWindow?.visibleViewController(){
+//                    visibleController.navigationController?.pushViewController(droHomeController, animated: true)
+//                }
+//            }
+//        }else{
+//            if let startTime = session.startTime {
+//                let localtime = Int(Date().timeIntervalSince1970) * 1000
+//                if startTime > localtime {
+//                    return
+//                }
+//            }
+        
+        var dueTodayArray = [SurveyScheduleDatabaseModel]()
+        
+        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        let dateString = dateFormatter.string(from: tomorrow)
+        if let tomorrowDate = dateFormatter.date(from: dateString) {
+            var startTime = Int(tomorrowDate.timeIntervalSince1970)
+            startTime  += TimeZone.current.secondsFromGMT()
+           let upcomingArray = DatabaseHandler.getUpcoming(startTime: startTime * 1000)
+            dueTodayArray = DatabaseHandler.getDueToday(startTime: startTime * 1000)
+            dueTodayArray += upcomingArray
+        }
+        
+        if let session = dueTodayArray.filter({ $0.surveySessionId == sessionId }).first{
+
+        
+                var survey = SurveySubmitModel()
+                if let surveyModel = DatabaseHandler.getSurveyOfSession(surveySessionId:sessionId ){
+                    survey = surveyModel
+                }else{
+                    survey = DatabaseHandler.getSurvey(surveyId: session.surveyID ?? 0)
+                }
+                survey.surveySessionId = session.surveySessionId
+                survey.scheduledDate = session.surveyDate
+                survey.scheduledStartTime = session.startTime
+                survey.scheduledEndTime = session.endTime
+                survey.programSurveyId = session.programSurveyId
+                survey.progressStatus = session.progressStatus
+                if survey.unscheduled == 1 {
+                    survey.scheduleType = "SCHEDULED"
+                    survey.unscheduled = 0
+                }else{
+                    survey.scheduleType = session.scheduleType
+                }
+                survey.declined = 0
+                let droHomeController = PostLoginStoryboard.instantiateViewController(withIdentifier :  AppController.DroHomeController) as! DroHomeController
+                droHomeController.survey = survey
+                if let visibleController = UIApplication.shared.keyWindow?.visibleViewController(){
+                    visibleController.navigationController?.pushViewController(droHomeController, animated: true)
+                }
+        }
+      //  }
+        
+    }
+    
+    func getQueryStringParameter(url: String, param: String) -> String? {
+        guard let url = URLComponents(string: url) else { return nil }
+        
+        return url.queryItems?.first(where: { $0.name == param })?.value
+    }
 
 }
 
+
 extension AppDelegate: UNUserNotificationCenterDelegate{
+
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        print("willPresent Method called")
+        debugPrint(notification.request.content.userInfo)
+        
+        
+        debugPrint("willPresent Method called")
 
     }
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
-        print("didReceive Method called")
+        debugPrint("didReceive Method called")
         
         if response.actionIdentifier == "Snooze" {
             DispatchQueue.main.async(execute: {
@@ -216,7 +350,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
         } else if response.actionIdentifier == "actionThree" {
             
         }
-        completionHandler()
+        //completionHandler()
     }
     func alertAction() {
         
