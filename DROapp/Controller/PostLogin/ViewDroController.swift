@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewDroController: UIViewController {
+class ViewDroController: DROViewController {
 
     //MARK:- Outlets
     

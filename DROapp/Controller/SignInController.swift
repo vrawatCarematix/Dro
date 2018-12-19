@@ -9,8 +9,8 @@
 import UIKit
 import LGSideMenuController
 import NotificationCenter
-
-class SignInController: UIViewController {
+import Crashlytics
+class SignInController: DROViewController {
     
     //MARK: - Oultets
 
@@ -47,6 +47,7 @@ class SignInController: UIViewController {
         }
     }
    
+   
     //MARK:- Initialise Data
     
     func initialiseData() {
@@ -57,12 +58,7 @@ class SignInController: UIViewController {
         buttonSignin.setCustomFont()
         buttonShowPassword.setCustomFont()
         buttonForgotPassword.setCustomFont()
-        buttonSignin.cornerRadius(radius: 5.0)
-        if UIDevice.current.userInterfaceIdiom == .pad{
-            buttonSignin.cornerRadius(radius: 15.0)
-        }else{
-            buttonSignin.cornerRadius(radius: 7.0)
-        }
+        buttonSignin.cornerRadius(radius: defaultCornerRadius)
         buttonSignin.backgroundColor = .disableButton
         buttonSignin.isUserInteractionEnabled = false
         if let firstTime = kUserDefault.value(forKey: kFirstTimeApp) as? String , firstTime == kNo {
@@ -135,7 +131,8 @@ class SignInController: UIViewController {
         if let token =  AppDelegateInstance.notificationToken {
             params["dnToken"] = token
         }
-        
+        Crashlytics.sharedInstance().setUserEmail(textfieldEmail.text ?? "")
+
         WebServiceMethods.sharedInstance.login(params){ (success, response, message ,responseHeader) in
             DispatchQueue.main.async {
                 if success {
@@ -144,7 +141,11 @@ class SignInController: UIViewController {
                             userDefaults.setValue(token, forKey: AppConstantString.kToken)                        
                     }
                     DatabaseHandler.deleteAllTableData()
+                    
+
                     if let userName = response[pusername] as? String{
+                        Crashlytics.sharedInstance().setUserName(userName)
+
                         kUserDefault.set(userName, forKey: pusername)
                     }
                     if let firstName = response[kfirstName] as? String{
@@ -158,6 +159,8 @@ class SignInController: UIViewController {
                     }
                     if let userId = response[kUserId] as? Int{
                         kUserDefault.set(userId, forKey: kUserId)
+                        Crashlytics.sharedInstance().setUserIdentifier("\(userId)")
+
                     }
                     if let programUserId = response[kProgramUserId] as? Int{
                         kUserDefault.set(programUserId, forKey: kProgramUserId)
@@ -197,9 +200,9 @@ class SignInController: UIViewController {
                                 }else{
                                     sideMenuController.leftViewWidth = UIScreen.main.bounds.size.width * 0.8
                                 }
-                                sideMenuController.leftViewPresentationStyle = .scaleFromBig
+                               // sideMenuController.leftViewPresentationStyle = LGSideMenuPresentationStyle.scaleFromBig
                                 sideMenuController.rightViewWidth = 100.0;
-                                sideMenuController.leftViewPresentationStyle = .slideBelow
+                                sideMenuController.leftViewPresentationStyle =  LGSideMenuPresentationStyle(rawValue: 1)!
                                 let navC = UINavigationController(rootViewController: sideMenuController)
                                 navC.setNavigationBarHidden(true, animated: false)
                                 UIApplication.shared.keyWindow?.rootViewController = navC

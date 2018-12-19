@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad12_9rounded" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -25,26 +24,26 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iXk-99-Ayr">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioOptionOff" translatesAutoresizingMaskIntoConstraints="NO" id="YW0-ww-ojP">
-                                <rect key="frame" x="35" y="17" width="16" height="16"/>
+                                <rect key="frame" x="35" y="19" width="12" height="12"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="YW0-ww-ojP" secondAttribute="height" id="DP8-Qo-RMS"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ibr-69-FKk">
-                                <rect key="frame" x="66" y="15" width="239" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="999" verticalCompressionResistancePriority="999" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ibr-69-FKk">
+                                <rect key="frame" x="62" y="20" width="243" height="9.5"/>
                                 <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="15"/>
                                 <color key="textColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aj8-z8-6lg">
-                                <rect key="frame" x="0.0" y="-0.5" width="320" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
                                 <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="16"/>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jfd-YJ-Mxa">
-                                <rect key="frame" x="0.0" y="49" width="320" height="1"/>
+                                <rect key="frame" x="0.0" y="48.5" width="320" height="1"/>
                                 <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="scq-T6-GhW"/>
@@ -56,7 +55,10 @@
                             <constraint firstAttribute="trailing" secondItem="Jfd-YJ-Mxa" secondAttribute="trailing" id="9Me-BV-vLj"/>
                             <constraint firstAttribute="trailing" secondItem="Ibr-69-FKk" secondAttribute="trailing" constant="15" id="9a6-cB-O7P"/>
                             <constraint firstAttribute="bottom" secondItem="Jfd-YJ-Mxa" secondAttribute="bottom" id="BBF-dj-xSv"/>
-                            <constraint firstAttribute="bottom" secondItem="Ibr-69-FKk" secondAttribute="bottom" constant="14.5" id="Iio-9M-658"/>
+                            <constraint firstAttribute="bottom" secondItem="Ibr-69-FKk" secondAttribute="bottom" constant="14.5" id="Iio-9M-658">
+                                <variation key="heightClass=regular-widthClass=regular" constant="20"/>
+                            </constraint>
+                            <constraint firstItem="YW0-ww-ojP" firstAttribute="width" secondItem="iXk-99-Ayr" secondAttribute="width" multiplier="12:320" id="KJd-kw-exr"/>
                             <constraint firstItem="Aj8-z8-6lg" firstAttribute="leading" secondItem="iXk-99-Ayr" secondAttribute="leading" id="Pyf-wq-cB3"/>
                             <constraint firstAttribute="bottom" secondItem="Aj8-z8-6lg" secondAttribute="bottom" id="Q0W-HK-xRU"/>
                             <constraint firstItem="YW0-ww-ojP" firstAttribute="leading" secondItem="iXk-99-Ayr" secondAttribute="leading" constant="35" id="VsO-hN-k6h"/>
@@ -64,10 +66,22 @@
                             <constraint firstAttribute="trailing" secondItem="Aj8-z8-6lg" secondAttribute="trailing" id="jLp-ZS-4nP"/>
                             <constraint firstItem="YW0-ww-ojP" firstAttribute="width" secondItem="iXk-99-Ayr" secondAttribute="width" multiplier="16:320" id="lBx-bF-IeX"/>
                             <constraint firstItem="Ibr-69-FKk" firstAttribute="leading" secondItem="YW0-ww-ojP" secondAttribute="trailing" constant="15" id="oHm-6L-ZVb"/>
-                            <constraint firstItem="Ibr-69-FKk" firstAttribute="top" secondItem="iXk-99-Ayr" secondAttribute="top" constant="15" id="ozJ-os-iU0"/>
+                            <constraint firstItem="Ibr-69-FKk" firstAttribute="top" secondItem="iXk-99-Ayr" secondAttribute="top" constant="15" id="ozJ-os-iU0">
+                                <variation key="heightClass=regular-widthClass=regular" constant="20"/>
+                            </constraint>
                             <constraint firstItem="YW0-ww-ojP" firstAttribute="centerY" secondItem="iXk-99-Ayr" secondAttribute="centerY" id="qI7-8b-0F9"/>
                             <constraint firstItem="Aj8-z8-6lg" firstAttribute="top" secondItem="iXk-99-Ayr" secondAttribute="top" id="rPg-Jm-dMD"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="lBx-bF-IeX"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="lBx-bF-IeX"/>
+                            </mask>
+                        </variation>
                     </view>
                 </subviews>
                 <constraints>
@@ -84,6 +98,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="radioOptionOff" width="256" height="256"/>
+        <image name="radioOptionOff" width="512" height="512"/>
     </resources>
 </document>

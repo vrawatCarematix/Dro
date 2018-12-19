@@ -10,7 +10,7 @@ import UIKit
 import DropDown
 import LGSideMenuController
 
-class DeclineController: UIViewController {
+class DeclineController: DROViewController {
     
     //MARK:- Outlet
     @IBOutlet var labelHeading: UILabel!
@@ -38,7 +38,7 @@ class DeclineController: UIViewController {
         labelHeading.setCustomFont()
         labelSelectedReason.setCustomFont()
         declineButton.setCustomFont()
-        declineButton.layer.cornerRadius = 7.0
+        declineButton.layer.cornerRadius = defaultCornerRadius
         chooseDecline.dismissMode = .onTap
         chooseDecline.direction = .any
         DropDown.appearance().textFont = labelSelectedReason.font

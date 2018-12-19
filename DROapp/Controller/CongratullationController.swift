@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CongratullationController: UIViewController {
+class CongratullationController: DROViewController {
     @IBOutlet var buttonGoBack: UIButton!
     
     @IBOutlet var labelCongrats: UILabel!
@@ -23,6 +23,7 @@ class CongratullationController: UIViewController {
             backButtonTitle = "Back to DRO Schedule"
         }
         buttonGoBack.setTitle(backButtonTitle, for: .normal)
+        buttonGoBack.layer.cornerRadius = defaultCornerRadius
         // Do any additional setup after loading the view.
     }
 

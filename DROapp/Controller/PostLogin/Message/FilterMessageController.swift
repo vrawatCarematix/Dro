@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FilterMessageController: UIViewController {
+class FilterMessageController: DROViewController {
     //MARK:- Outlets
 
         @IBOutlet var applyButton: UIButton!
@@ -35,7 +35,7 @@ class FilterMessageController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        applyButton.layer.cornerRadius = 5.0
+        applyButton.layer.cornerRadius = defaultCornerRadius
         applyButton.setCustomFont()
         labelSort.setCustomFont()
         labelAsc.setCustomFont()

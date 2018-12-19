@@ -1075,7 +1075,7 @@ open class WWCalendarTimeSelector: UIViewController, UITableViewDelegate, UITabl
             dateLabel.textColor = optionSelectorPanelFontColorDate
             yearLabel.textColor = optionSelectorPanelFontColorYear
             
-            let colonIndex = timeText.characters.distance(from: timeText.startIndex, to: timeText.range(of: ":")!.lowerBound)
+            let colonIndex = timeText.distance(from: timeText.startIndex, to: timeText.range(of: ":")!.lowerBound)
             let hourRange = NSRange(location: 0, length: colonIndex)
             let minuteRange = NSRange(location: colonIndex + 1, length: 2)
             

@@ -16,7 +16,7 @@ class QuestionAnswer {
     var answer : Int?
 }
 
-class QuestionnaireController: UIViewController {
+class QuestionnaireController: DROViewController {
     
     //MARK:- Outlet
     @IBOutlet var labelTitle: UILabel!
@@ -31,7 +31,8 @@ class QuestionnaireController: UIViewController {
     @IBOutlet var progressViewHeight: NSLayoutConstraint!
     @IBOutlet var questionProgressView: UIProgressView!
     @IBOutlet var questionTable: UITableView!
-    
+    var lastQuestionMessage = true
+
     //MARK:- Variables
     
     var survey = SurveySubmitModel()
@@ -469,7 +470,7 @@ class QuestionnaireController: UIViewController {
             var enableNext = false
             var helpText = ""
             for section in sectionArray {
-              var row = 0
+                var row = 0
                 for question in section.questionArray {
                     enableNext = false
                     row += 1
@@ -510,14 +511,14 @@ class QuestionnaireController: UIViewController {
                         if let cell = questionTable.cellForRow(at: IndexPath(row: row, section: 0)) as? BPAnswerCell {
                             if cell.systolicTextfield.text?.trimmingCharacters(in: .whitespaces) != "" && cell.diastolicTextfield.text?.trimmingCharacters(in: .whitespaces) != ""{
                                 if let text = cell.systolicTextfield.text , let systolic = Int(text ) , systolic < 50 {
-                                        if let visibleController = UIApplication.shared.keyWindow?.visibleViewController(){
-                                            visibleController.view.showToast(toastMessage: "Systolic cannot be less than 50", duration: 2.0)
-                                        }
+                                    if let visibleController = UIApplication.shared.keyWindow?.visibleViewController(){
+                                        visibleController.view.showToast(toastMessage: "Systolic cannot be less than 50", duration: 2.0)
+                                    }
                                     return
                                 }else if let text = cell.diastolicTextfield.text , let diastolic = Int(text) , diastolic < 50 {
-                                        if let visibleController = UIApplication.shared.keyWindow?.visibleViewController(){
-                                            visibleController.view.showToast(toastMessage: "Diastolic cannot be less than 50", duration: 2.0)
-                                        }
+                                    if let visibleController = UIApplication.shared.keyWindow?.visibleViewController(){
+                                        visibleController.view.showToast(toastMessage: "Diastolic cannot be less than 50", duration: 2.0)
+                                    }
                                     return
                                 }else{
                                     userAnswer.answerFreeText = cell.systolicTextfield.text! + "/" + cell.diastolicTextfield.text!
@@ -606,7 +607,7 @@ class QuestionnaireController: UIViewController {
                         }
                     }
                     else if question.answerType == ViewType.kVideoUpload.rawValue {
-                          NotificationCenter.default.post(name: NSNotification.Name(rawValue: "StopPlaying"), object: nil)
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "StopPlaying"), object: nil)
                         let cell = questionTable.cellForRow(at: IndexPath(row: row, section: 0)) as!  VideoAnswerCell
                         if let name =  cell.media.name , name != "" {
                             enableNext = true
@@ -627,18 +628,18 @@ class QuestionnaireController: UIViewController {
                         break
                     }else{
                         if userAnswerArray.filter({ $0.questionId == question.id }).count > 0 {
-                          var temp = tempUserAnswerArray.filter({ $0.questionId == question.id })[0]
+                            var temp = tempUserAnswerArray.filter({ $0.questionId == question.id })[0]
                             temp = userAnswer
-                           var temp2 =  userAnswerArray.filter({ $0.questionId == question.id })[0]
+                            var temp2 =  userAnswerArray.filter({ $0.questionId == question.id })[0]
                             temp2 = userAnswer
-
+                            
                         }else{
                             userAnswerArray.append(userAnswer)
                         }
                         
                     }
                     var isDropDown = true
-
+                    
                     if question.answerArray.count > 0 {
                         for _ in question.answerArray {
                             if question.answerType == ViewType.kDropdown.rawValue {
@@ -648,27 +649,28 @@ class QuestionnaireController: UIViewController {
                                 }
                             }else{
                                 row += 1
-                        
+                                
                             }
                         }
                     }else{
                         row += 1
                     }
-            
+                    
                 }
                 if section.questionArray.count == 0 {
                     enableNext = true
                 }
-        }
+            }
             if enableNext {
                 if (questionNumber + 1) < survey.pagesArray.count {
                     questionNumber = questionNumber + 1
                     self.changePage(pageid: nextPageId)
                     questionTableReloaded()
                     updateProgressBar()
-                    if (questionNumber + 1) == survey.pagesArray.count {
+                    if (questionNumber + 1) == survey.pagesArray.count && lastQuestionMessage{
                         let view = CustomSuccessAlert.instanceFromNib(title: "Whoa!", message: "You are only 1 answer away from completing this questionnaire.", okButtonTitle: "Ok", type: .normal) 
                         UIApplication.shared.keyWindow?.addSubview(view)
+                        lastQuestionMessage = false
                     }
                 }else{
                     var endTime = Int(Date().timeIntervalSince1970)
@@ -698,7 +700,7 @@ class QuestionnaireController: UIViewController {
                         CustomActivityIndicator.startAnimating( message: "Submitting...")
                         submitSurvey(survey) { (success, response, message) in
                             DispatchQueue.main.async {
-                               // CustomActivityIndicator.stopAnimating()
+                                // CustomActivityIndicator.stopAnimating()
                                 if success{
                                     self.survey.isUploaded = 1
                                     var _ = DatabaseHandler.insertIntoSurveyData(survey: self.survey)
@@ -1328,9 +1330,9 @@ extension QuestionnaireController : UITableViewDelegate{
                 
                 if text.lowercased().contains("<div".lowercased()){
                     let cell = tableView.dequeueReusableCell(withIdentifier: ReusableIdentifier.WebViewCell)  as? WebViewCell
-                    if let height = tableSectionArray[section]{
-                      //  cell?.webViewHeightConstraint.constant = height
-                    }
+//                    if let height = tableSectionArray[section]{
+//                      //  cell?.webViewHeightConstraint.constant = height
+//                    }
                     cell?.cellIndexpath = section
                     cell?.delegate = self
                     cell?.htmlContent = text
@@ -1342,7 +1344,6 @@ extension QuestionnaireController : UITableViewDelegate{
                     cell?.selectionStyle = .none
                     return cell!
                 }else{
-                    
                     let cell = tableView.dequeueReusableCell(withIdentifier: ReusableIdentifier.TermSingleTextCell)  as? TermSingleTextCell
                     cell?.labelDetail.text = text
                     cell?.selectionStyle = .none

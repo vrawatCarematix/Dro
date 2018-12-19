@@ -713,12 +713,15 @@ import UIKit
         }
     }
     
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//    }
     // MARK: Methods
     
     /**
      Overriden public init to initialize the layer and view
      */
-    override public init(frame: CGRect) {
+    override  init(frame: CGRect) {
         super.init(frame: frame)
         // Call the internal initializer
         initialize()

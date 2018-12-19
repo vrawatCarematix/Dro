@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailMessageController: UIViewController {
+class DetailMessageController: DROViewController {
 
     //MARK:- Outlet
     @IBOutlet var messageTable: UITableView!

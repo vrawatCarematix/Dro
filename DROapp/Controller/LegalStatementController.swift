@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LegalStatementController: UIViewController {
+class LegalStatementController: DROViewController {
 
     //MARK: - Outlets
 

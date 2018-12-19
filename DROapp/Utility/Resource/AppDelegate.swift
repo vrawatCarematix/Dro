@@ -10,10 +10,10 @@ import UIKit
 import IQKeyboardManagerSwift
 import DropDown
 import UserNotifications
-
 import LGSideMenuController
 import Fabric
 import Crashlytics
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     private var reachability:Reachability!;
@@ -81,7 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerForRemoteNotifications()
 
         
-        UIApplication.shared.statusBarStyle = .lightContent
+       // UIApplication.shared.statusBarStyle = .lightContent
         UINavigationBar.appearance().backIndicatorImage = #imageLiteral(resourceName: "back")
         UINavigationBar.appearance().backIndicatorTransitionMaskImage = #imageLiteral(resourceName: "back")
         UIBarButtonItem.appearance().setBackButtonBackgroundImage(#imageLiteral(resourceName: "back"), for: .normal, barMetrics: .default)
@@ -99,9 +99,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }else{
                 sideMenuController.leftViewWidth = UIScreen.main.bounds.size.width * 0.8
             }
-            sideMenuController.leftViewPresentationStyle = .scaleFromBig;
+            //sideMenuController.leftViewPresentationStyle = LGSideMenuPresentationStyle.scaleFromBig;
             sideMenuController.rightViewWidth = 100.0;
-            sideMenuController.leftViewPresentationStyle = .slideBelow;
+            sideMenuController.leftViewPresentationStyle =  LGSideMenuPresentationStyle(rawValue: 1)!
             let navC = UINavigationController(rootViewController: sideMenuController)
             navC.setNavigationBarHidden(true, animated: false)
             self.window?.rootViewController = navC
@@ -365,3 +365,4 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
         presentedViewController.present(alertController, animated: true, completion: nil)
     }
 }
+

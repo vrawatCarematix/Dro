@@ -10,7 +10,7 @@ import UIKit
 import FoldingCell
 import UserNotifications
 import NotificationCenter
-class DashboardController: UIViewController {
+class DashboardController: DROViewController {
     
     //MARK:- Outlet
     
@@ -770,14 +770,17 @@ extension DashboardController : UITableViewDelegate{
             NSLayoutConstraint.activate([cell1.bottomConstrient])
             self.dashboardTable.beginUpdates()
             self.dashboardTable.endUpdates()
+
             UIView.animate(withDuration:0.2, delay: 0, options: .curveEaseIn, animations: { () -> Void in
                 var origin = cell1.frame.origin
                 origin.y -= cell1.frame.size.height
+
                 //self.dashboardTable.contentOffset = origin
             }, completion: { (success) in
                 self.dashboardTable.beginUpdates()
                 self.dashboardTable.endUpdates()
                 cell.unfold(true, animated: true) {
+                    self.dashboardTable.scrollToRow(at: indexPath, at: .bottom, animated: true)
                 }
             })
         }

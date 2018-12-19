@@ -10,7 +10,7 @@
 
 import UIKit
 
-class FilterDroController: UIViewController {
+class FilterDroController: DROViewController {
     
     //MARK:- Outlets
     @IBOutlet var applyButton: UIButton!
@@ -37,7 +37,7 @@ class FilterDroController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        applyButton.layer.cornerRadius = 5.0
+        applyButton.layer.cornerRadius = defaultCornerRadius
         applyButton.setCustomFont()
         labelSort.setCustomFont()
         labelAsc.setCustomFont()
@@ -110,7 +110,7 @@ class FilterDroController: UIViewController {
             buttonDesc.isSelected = true
             labelDesc.font = UIFont(name: kSFSemibold, size: labelAsc.font.pointSize)
         }
-        kSFRegular
+        
     }
     
     //MARK:- Button Action

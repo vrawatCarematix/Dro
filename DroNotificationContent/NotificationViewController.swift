@@ -26,8 +26,8 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
        // label.setCustomFont()
        // continueButton.setCustomFont()
        // declineButton.setCustomFont()
-        declineButton.layer.cornerRadius = 5.0
-        continueButton.layer.cornerRadius = 5.0
+        declineButton.layer.cornerRadius = 7.0
+        continueButton.layer.cornerRadius = 7.0
 
     }
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TermsController: UIViewController {
+class TermsController: DROViewController {
 
     @IBOutlet var tableTerms: UITableView!
     @IBOutlet var labelDate: UILabel!

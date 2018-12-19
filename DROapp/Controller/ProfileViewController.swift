@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: DROViewController {
 
     var profileArray = [ProfileModel]()
     var titleArray = [String]()
@@ -177,14 +177,14 @@ class ProfileViewController: UIViewController {
             self.userName.text = ""
         }
         
-        if self.profileArray.filter({ $0.fieldType == "GENDER" }).count > 0 , let gender = self.profileArray.filter({ $0.fieldType == "GENDER" })[0].value , gender.trimmingCharacters(in: .whitespacesAndNewlines ) != "" {
-            if self.profileArray.filter({ $0.fieldType == "ETHNICITY" }).count > 0 , let ethnticity = self.profileArray.filter({ $0.fieldType == "ETHNICITY" })[0].value  , ethnticity.trimmingCharacters(in: .whitespacesAndNewlines ) != ""{
+        if self.profileArray.filter({ $0.fieldType == "ETHNICITY" }).count > 0 , let gender = self.profileArray.filter({ $0.fieldType == "ETHNICITY" })[0].value , gender.trimmingCharacters(in: .whitespacesAndNewlines ) != "" {
+            if self.profileArray.filter({ $0.fieldType == "GENDER" }).count > 0 , let ethnticity = self.profileArray.filter({ $0.fieldType == "GENDER" })[0].value  , ethnticity.trimmingCharacters(in: .whitespacesAndNewlines ) != ""{
                 self.userGender.text = gender + ", " + ethnticity.capitalized
             }else{
                 self.userGender.text = gender
             }
         }else{
-            if self.profileArray.filter({ $0.fieldType == "ETHNICITY" }).count > 0 , let ethnticity = self.profileArray.filter({ $0.fieldType == "ETHNICITY" })[0].value ,  ethnticity.trimmingCharacters(in: .whitespacesAndNewlines ) != ""{
+            if self.profileArray.filter({ $0.fieldType == "GENDER" }).count > 0 , let ethnticity = self.profileArray.filter({ $0.fieldType == "GENDER" })[0].value ,  ethnticity.trimmingCharacters(in: .whitespacesAndNewlines ) != ""{
                 self.userGender.text =  ethnticity.capitalized
             }else{
                 self.userGender.text = ""

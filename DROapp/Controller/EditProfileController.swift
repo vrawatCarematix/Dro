@@ -9,7 +9,7 @@
 import UIKit
 import IQKeyboardManagerSwift
 
-class EditProfileController: UIViewController {
+class EditProfileController: DROViewController {
 
     //Variables
     var titleArray = [String]()

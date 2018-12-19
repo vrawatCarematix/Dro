@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TrainingSuccessController: UIViewController {
+class TrainingSuccessController: DROViewController {
 
     @IBOutlet var buttonGoBack: UIButton!
     @IBOutlet var labelCongrats: UILabel!

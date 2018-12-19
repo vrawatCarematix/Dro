@@ -15,7 +15,7 @@ enum MyTheme {
     case dark
 }
 
-class ScheduleController :  UIViewController {
+class ScheduleController :  DROViewController {
     
     //MARK:- Outlets
     @IBOutlet var scheduleTable: UITableView!
@@ -417,8 +417,8 @@ extension ScheduleController:  CalenderDelegate {
         }
         calenderView.removeFromSuperview()
         if calenderView == nil {
-                 calenderView = CalenderView(theme: MyTheme.light)
-                calenderView.translatesAutoresizingMaskIntoConstraints=false
+            calenderView = CalenderView(theme: MyTheme.light)
+            calenderView.translatesAutoresizingMaskIntoConstraints=false
         }
         view.addSubview(calenderView)
         calenderView.delegate = self

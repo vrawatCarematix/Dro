@@ -149,6 +149,9 @@ class DroTabBarController: UITabBarController {
         return newImage
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle{
+        return .lightContent
+    }
     
    
     

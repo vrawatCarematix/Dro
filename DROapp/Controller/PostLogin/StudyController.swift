@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StudyController: UIViewController {
+class StudyController: DROViewController {
     
     //MARK:- Outlets
     @IBOutlet var labelTitle: UILabel!
@@ -17,16 +17,15 @@ class StudyController: UIViewController {
     //MARK:- Variables
     var legalStatmentArray = [ConfigDatabaseModel]()
     var openSection = [Int]()
-
+    
     //MARK:- ViewLife Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         labelTitle.setCustomFont()
         legalStatmentArray = DatabaseHandler.getAllConfig(kSTUDY_INFO)
         legalStatmentArray = legalStatmentArray.filter({ $0.fieldType == kDIV_HEADER_BODY })
         NotificationCenter.default.addObserver(self, selector: #selector(setText), name: NSNotification.Name(rawValue: klanguagechange) , object: nil)
-        
         
         let textCellNib = UINib(nibName: ReusableIdentifier.TermTextCell, bundle: nil)
         studyTable.register(textCellNib, forCellReuseIdentifier: ReusableIdentifier.TermTextCell)
@@ -45,7 +44,7 @@ class StudyController: UIViewController {
         
         setText()
     }
-
+    
     //MARK:- Changes Text on language Changes
     
     @objc func setText()  {
@@ -59,21 +58,14 @@ class StudyController: UIViewController {
     
     //MARK:- Button Action
     @objc func readMoreDetail(_ sender : UIButton){
-        
         if let index = openSection.firstIndex(of: sender.tag) {
-
-           openSection.remove(at: index)
+            openSection.remove(at: index)
         }else{
             openSection.append(sender.tag)
-            
         }
         studyTable.reloadData()
-//        let detailController  = PostLoginStoryboard.instantiateViewController(withIdentifier: AppController.DetailTermViewController) as! DetailTermViewController
-//        detailController.legalStatmentArray =  [legalStatmentArray[sender.tag]]
-//        detailController.titleString = legalStatmentArray[sender.tag].name ?? ""
-//        self.navigationController?.pushViewController(detailController, animated: true)
     }
-
+    
 }
 
 //MARK:- UITableViewDataSource
@@ -99,15 +91,12 @@ extension StudyController : UITableViewDataSource{
             return cell!
         }
         let statement = legalStatmentArray[indexPath.section]
-        
         if let urlType = statement.urlType {
-            
             if urlType.lowercased() == kImage.lowercased() {
                 let cell = tableView.dequeueReusableCell(withIdentifier: ReusableIdentifier.TermImageCell, for: indexPath)  as? TermImageCell
                 cell?.selectionStyle = .none
                 return cell!
             }else if urlType.lowercased() == kAudio.lowercased() {
-                
                 let cell = tableView.dequeueReusableCell(withIdentifier: ReusableIdentifier.TermAudioCell, for: indexPath)  as? TermAudioCell
                 cell?.selectionStyle = .none
                 return cell!
@@ -118,18 +107,14 @@ extension StudyController : UITableViewDataSource{
                 cell?.webUrl = url
                 cell?.selectionStyle = .none
                 return cell!
-            }else if let url = statement.url , urlType.lowercased() == kVideo.lowercased() {
+            }else if let _ = statement.url , urlType.lowercased() == kVideo.lowercased() {
                 let cell = tableView.dequeueReusableCell(withIdentifier: ReusableIdentifier.TermVideoCell, for: indexPath)  as? TermVideoCell
-                
                 cell?.selectionStyle = .none
                 return cell!
             }else{
-                
                 let cell = tableView.dequeueReusableCell(withIdentifier: ReusableIdentifier.TermTextCell, for: indexPath)  as? TermTextCell
                 cell?.labelTitle.text = statement.header
                 cell?.labelDetail.text = statement.descriptions
-                
-                
                 cell?.selectionStyle = .none
                 return cell!
             }
@@ -137,7 +122,6 @@ extension StudyController : UITableViewDataSource{
             let cell = tableView.dequeueReusableCell(withIdentifier: ReusableIdentifier.TermTextCell, for: indexPath)  as? TermTextCell
             cell?.labelTitle.text = statement.header
             cell?.labelDetail.text = statement.descriptions
-            
             cell?.selectionStyle = .none
             return cell!
         }
@@ -165,7 +149,6 @@ extension StudyController : UITableViewDelegate{
         //cell?.labelDetail.numberOfLines = 0
         cell?.labelHeader.text = legalStatmentArray[section].header
         cell?.labelDetail.text = legalStatmentArray[section].descriptions
-        
         if let  lines = cell?.labelDetail.calculateMaxLines() , lines > 4{
             cell?.readMoreButton.isUserInteractionEnabled = true
             cell?.readMoreButton.setTitle(kRead_More.localisedString().capitalized, for: .normal)
@@ -185,22 +168,21 @@ extension StudyController : UITableViewDelegate{
         cell?.readMoreButton.addTarget(self, action: #selector(readMoreDetail(_:)), for: .touchUpInside)
         return cell!
     }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if openSection.contains(section){
             return 0
-            
         }else{
             return UITableView.automaticDimension
             
         }
     }
+    
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         if openSection.contains(section){
             return 0
-            
         }else{
             return 20
-            
         }
     }
 }

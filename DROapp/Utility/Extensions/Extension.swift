@@ -466,7 +466,7 @@ extension UILabel {
 extension UILabel {
     func calculateMaxLines() -> Int {
        
-        let maxSize = CGSize(width:  UIScreen.main.bounds.size.width - 20, height: CGFloat(Float.infinity))
+        let maxSize = CGSize(width: (UIDevice.current.userInterfaceIdiom == .pad) ? UIScreen.main.bounds.size.width - 60 : UIScreen.main.bounds.size.width - 20 , height: CGFloat(Float.infinity))
         let charSize = font.lineHeight
         let text = (self.text ?? "") as NSString
         let textSize = text.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)

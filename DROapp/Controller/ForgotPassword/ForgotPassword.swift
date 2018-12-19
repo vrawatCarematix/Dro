@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ForgotPassword: UIViewController {
+class ForgotPassword: DROViewController {
     
     //MARK:- Outlet
     @IBOutlet var imgBorder: UIImageView!
@@ -51,7 +51,7 @@ class ForgotPassword: UIViewController {
         textFieldEmail.autocorrectionType = .no
         
         buttonGetOTP.setCustomFont()
-        buttonGetOTP.cornerRadius(radius: 5.0)
+        buttonGetOTP.cornerRadius(radius: defaultCornerRadius)
         buttonGetOTP.backgroundColor = .disableButton
         labelEnterOtp.setCustomFont()
         labelOtpDescription.setCustomFont()
@@ -59,7 +59,7 @@ class ForgotPassword: UIViewController {
         labelTimer.setCustomFont()
         buttonResend.setCustomFont()
         buttonVerify.setCustomFont()
-        buttonVerify.cornerRadius(radius: 5.0)
+        buttonVerify.cornerRadius(radius: defaultCornerRadius)
         labelDescription.text = "Just let us know your registered email address or mobile number"
         buttonGetOTP.isUserInteractionEnabled = false
         buttonGetOTP.backgroundColor = UIColor.disableButton

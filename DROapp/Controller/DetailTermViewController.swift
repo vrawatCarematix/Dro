@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailTermViewController: UIViewController {
+class DetailTermViewController: DROViewController {
 
     @IBOutlet var detailTable: UITableView!
     @IBOutlet var labelTitle: UILabel!
@@ -95,7 +95,7 @@ extension DetailTermViewController : UITableViewDataSource{
             cell?.webUrl = url
             cell?.selectionStyle = .none
             return cell!
-           }else if let url = statement.url , urlType.lowercased() == kVideo.lowercased() {
+           }else if let _ = statement.url , urlType.lowercased() == kVideo.lowercased() {
             let cell = tableView.dequeueReusableCell(withIdentifier: ReusableIdentifier.TermVideoCell, for: indexPath)  as? TermVideoCell
             
             cell?.selectionStyle = .none

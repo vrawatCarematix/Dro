@@ -27,14 +27,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="315" height="68.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="999" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IJA-Ab-3dM">
-                        <rect key="frame" x="15" y="37" width="285" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="998" verticalCompressionResistancePriority="999" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IJA-Ab-3dM">
+                        <rect key="frame" x="15" y="16" width="285" height="47.5"/>
                         <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="14"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="999" verticalCompressionResistancePriority="999" ambiguous="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ncg-0k-ql0">
-                        <rect key="frame" x="15" y="8" width="285" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="999" verticalCompressionResistancePriority="999" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ncg-0k-ql0">
+                        <rect key="frame" x="15" y="8" width="285" height="0.0"/>
                         <fontDescription key="fontDescription" name="SFProDisplay-Medium" family="SF Pro Display" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -44,23 +44,23 @@
                     <constraint firstAttribute="bottom" secondItem="IJA-Ab-3dM" secondAttribute="bottom" constant="40" id="2UB-Xk-iHr">
                         <variation key="heightClass=regular-widthClass=compact" constant="5"/>
                     </constraint>
-                    <constraint firstItem="IJA-Ab-3dM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="50" id="7VC-Gj-4LP">
+                    <constraint firstItem="IJA-Ab-3dM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="7VC-Gj-4LP">
                         <variation key="heightClass=regular-widthClass=compact" constant="15"/>
                     </constraint>
-                    <constraint firstItem="ncg-0k-ql0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="50" id="AVP-oe-g2e">
+                    <constraint firstItem="ncg-0k-ql0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="AVP-oe-g2e">
                         <variation key="heightClass=regular-widthClass=compact" constant="15"/>
                     </constraint>
-                    <constraint firstAttribute="trailing" secondItem="ncg-0k-ql0" secondAttribute="trailing" constant="50" id="Jdh-TK-b1n">
-                        <variation key="heightClass=regular-widthClass=compact" constant="15"/>
-                    </constraint>
-                    <constraint firstAttribute="trailing" secondItem="IJA-Ab-3dM" secondAttribute="trailing" constant="50" id="Ora-cz-ZZP">
+                    <constraint firstAttribute="trailing" secondItem="IJA-Ab-3dM" secondAttribute="trailing" constant="30" id="Ora-cz-ZZP">
                         <variation key="heightClass=regular-widthClass=compact" constant="15"/>
                     </constraint>
                     <constraint firstItem="ncg-0k-ql0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="pzM-3H-bVv">
                         <variation key="heightClass=regular-widthClass=compact" constant="8"/>
                     </constraint>
-                    <constraint firstItem="IJA-Ab-3dM" firstAttribute="top" secondItem="ncg-0k-ql0" secondAttribute="bottom" constant="20" id="wIS-xM-pfw">
+                    <constraint firstItem="IJA-Ab-3dM" firstAttribute="top" secondItem="ncg-0k-ql0" secondAttribute="bottom" constant="15" id="wIS-xM-pfw">
                         <variation key="heightClass=regular-widthClass=compact" constant="8"/>
+                    </constraint>
+                    <constraint firstAttribute="trailing" secondItem="ncg-0k-ql0" secondAttribute="trailing" constant="30" id="xBg-Vh-mxl">
+                        <variation key="heightClass=regular-widthClass=compact" constant="15"/>
                     </constraint>
                 </constraints>
             </tableViewCellContentView>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SuccessChangePassword: UIViewController {
+class SuccessChangePassword: DROViewController {
     
     //MARK:- Outlet
     @IBOutlet weak var buttonContinue: UIButton!
@@ -32,7 +32,7 @@ class SuccessChangePassword: UIViewController {
         labelSucces.setCustomFont()
         labelDescription.setCustomFont()
         buttonContinue.setCustomFont()
-        buttonContinue.cornerRadius(radius: 5.0)
+        buttonContinue.cornerRadius(radius: defaultCornerRadius)
     }
     
     func setText()  {

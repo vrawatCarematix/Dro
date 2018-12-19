@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ResetPassword: UIViewController {
+class ResetPassword: DROViewController {
 
     //MARK: - Variable
 
@@ -47,7 +47,7 @@ class ResetPassword: UIViewController {
         textfieldConfirmPassword.setCustomFont()
         textfieldNewPassword.setCustomFont()
         buttonSubmit.setCustomFont()
-        buttonSubmit.cornerRadius(radius: 5.0)
+        buttonSubmit.cornerRadius(radius: defaultCornerRadius)
         buttonSubmit.backgroundColor = .disableButton
         buttonSubmit.isUserInteractionEnabled = false
     }

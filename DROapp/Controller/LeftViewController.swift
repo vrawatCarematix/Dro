@@ -9,7 +9,7 @@
 import UIKit
 import LGSideMenuController
 import SDWebImage
-class LeftViewController: UIViewController {
+class LeftViewController: DROViewController {
     
     //MARK:- Outlet
 

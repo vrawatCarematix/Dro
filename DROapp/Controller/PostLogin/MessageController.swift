@@ -10,7 +10,7 @@ import UIKit
 
 
 
-class MessageController: UIViewController {
+class MessageController: DROViewController {
     
     //MARK:- Outlets
 

@@ -327,6 +327,7 @@
 		17CCA723213D5ACF000F5077 /* UserAnswerLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17CCA722213D5ACF000F5077 /* UserAnswerLogs.swift */; };
 		17CCA725213D9783000F5077 /* PagesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17CCA724213D9783000F5077 /* PagesModel.swift */; };
 		17CCA727213D9CB6000F5077 /* SectionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17CCA726213D9CB6000F5077 /* SectionsModel.swift */; };
+		17D0F32621C789F3008E79E9 /* DROViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D0F32521C789F3008E79E9 /* DROViewController.swift */; };
 		17D86AB9215CC03E00A50900 /* CustomLogoutAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17D86AB7215CC03E00A50900 /* CustomLogoutAlert.xib */; };
 		17D86ABA215CC03E00A50900 /* CustomLogoutAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D86AB8215CC03E00A50900 /* CustomLogoutAlert.swift */; };
 		17DF13B72135239C000CF26C /* SurveyScheduleDatabaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DF13B62135239B000CF26C /* SurveyScheduleDatabaseModel.swift */; };
@@ -692,6 +693,7 @@
 		17CCA722213D5ACF000F5077 /* UserAnswerLogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAnswerLogs.swift; sourceTree = "<group>"; };
 		17CCA724213D9783000F5077 /* PagesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagesModel.swift; sourceTree = "<group>"; };
 		17CCA726213D9CB6000F5077 /* SectionsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionsModel.swift; sourceTree = "<group>"; };
+		17D0F32521C789F3008E79E9 /* DROViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DROViewController.swift; sourceTree = "<group>"; };
 		17D86AB7215CC03E00A50900 /* CustomLogoutAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomLogoutAlert.xib; sourceTree = "<group>"; };
 		17D86AB8215CC03E00A50900 /* CustomLogoutAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLogoutAlert.swift; sourceTree = "<group>"; };
 		17DF13B62135239B000CF26C /* SurveyScheduleDatabaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurveyScheduleDatabaseModel.swift; sourceTree = "<group>"; };
@@ -1045,6 +1047,7 @@
 			isa = PBXGroup;
 			children = (
 				17529A9C20ECDC1B00EC65AD /* CardView.swift */,
+				17D0F32521C789F3008E79E9 /* DROViewController.swift */,
 			);
 			path = CustomClass;
 			sourceTree = "<group>";
@@ -2064,6 +2067,7 @@
 				175741A32119B33C00F008C0 /* VideoQuestionCell.swift in Sources */,
 				175741CA2119B48E00F008C0 /* CosmosLocalizedRating.swift in Sources */,
 				17AA54FB2136B7040014CEA0 /* TermWebCell.swift in Sources */,
+				17D0F32621C789F3008E79E9 /* DROViewController.swift in Sources */,
 				17B873BE20EF70C300B691C0 /* DueTodayRowCell.swift in Sources */,
 				1772D53E20EC995A0081F550 /* WelcomeScreen.swift in Sources */,
 				175741C52119B48E00F008C0 /* CosmosAccessibility.swift in Sources */,

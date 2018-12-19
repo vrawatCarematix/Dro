@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DroHomeController: UIViewController {
+class DroHomeController: DROViewController {
 
     //MARK:- Outlet
     @IBOutlet var viewContinue: UIView!
@@ -33,22 +33,23 @@ class DroHomeController: UIViewController {
         labelTitle.setCustomFont()
         continueButton.setCustomFont()
         declineButton.setCustomFont()
-        declineButton.layer.cornerRadius = 5.0
-        continueButton.layer.cornerRadius = 5.0
+        declineButton.layer.cornerRadius = defaultCornerRadius
+        continueButton.layer.cornerRadius = defaultCornerRadius
         states = [Bool](repeating: true, count: survey.surveyInstructionArray.count + 1)
+      
+        // Do any additional setup after loading the view.
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
         if let status = survey.progressStatus , status.lowercased() == "STARTED".lowercased()  {
             viewDecline.isHidden = true
         }else{
             viewDecline.isHidden = false
         }
-
+        
         if survey.scheduleType == "UNSCHEDULED"{
             viewDecline.isHidden = true
         }
-        // Do any additional setup after loading the view.
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
         if reVisit{
             viewDecline.isHidden = true
         }
@@ -59,6 +60,7 @@ class DroHomeController: UIViewController {
     //MARK:- Button Action
 
     @IBAction func declineDro(_ sender: UIButton) {
+        reVisit = false
         let declineController = PostLoginStoryboard.instantiateViewController(withIdentifier: AppController.DeclineController) as! DeclineController
         declineController.surveyArray = [survey]
         declineController.droHome = self

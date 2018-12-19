@@ -9,7 +9,7 @@
 import UIKit
 import UserNotifications
 import NotificationCenter
-class WelcomeScreen: UIViewController {
+class WelcomeScreen: DROViewController {
 
     //MARK: - Outlets
 
@@ -82,13 +82,8 @@ class WelcomeScreen: UIViewController {
         buttonLegalStatement.isHidden = true
         emailView.backgroundColor = .appButtonColor
         microsoftView.backgroundColor = .white
-        if UIDevice.current.userInterfaceIdiom == .pad{
-            emailView.cornerRadius(radius: 15.0)
-            microsoftView.cornerRadius(radius: 15.0)
-        }else{
-            emailView.cornerRadius(radius: 7.0)
-            microsoftView.cornerRadius(radius: 7.0)
-        }
+        emailView.cornerRadius(radius: defaultCornerRadius)
+        microsoftView.cornerRadius(radius: defaultCornerRadius)
     }
     
     //Initialise Data

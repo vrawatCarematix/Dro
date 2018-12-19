@@ -8,7 +8,7 @@
 
 import UIKit
 import UserNotifications
-class ChangePassword: UIViewController {
+class ChangePassword: DROViewController {
 
     //MARK: - Outlet
 
@@ -31,108 +31,6 @@ class ChangePassword: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        let notification = UILocalNotification()
-//        notification.fireDate = Date(timeIntervalSinceNow: 25)
-//        notification.alertBody = "Hey you have a Dro Survey"
-//        notification.alertAction = "be awesome!"
-//        notification.soundName = UILocalNotificationDefaultSoundName
-//        notification.userInfo = ["CustomField1": "w00t"]
-//        UIApplication.shared.scheduleLocalNotification(notification)
-
-  
-
-            
-            let center = UNUserNotificationCenter.current()
-            
-            center.getNotificationSettings { (settings) in
-                if settings.authorizationStatus == .authorized {
-                    
-                    let content = UNMutableNotificationContent()
-                    content.title = "Don't forget"
-                    content.body = "Hey you have a Dro Survey"
-                    content.sound = UNNotificationSound.default
-                    content.categoryIdentifier = "UYLReminderCategory"
-
-                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15,
-                                                                    repeats: false)
-                    
-                    let date = Date(timeIntervalSinceNow: 3600)
-                    let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date)
-                    // Swift
-                    let trigger1 = UNCalendarNotificationTrigger(dateMatching: triggerDate,
-                                                                repeats: false)
-                    
-                    //Daily
-                    let triggerDaily = Calendar.current.dateComponents([.hour,.minute,.second,], from: date)
-                    let trigger2 = UNCalendarNotificationTrigger(dateMatching: triggerDaily, repeats: true)
-                    
-                    //Weekly
-                    let triggerWeekly = Calendar.current.dateComponents([.weekday, .hour,.minute,.second,], from: date)
-                    let trigger3 = UNCalendarNotificationTrigger(dateMatching: triggerWeekly, repeats: true)
-                    
-                    
-                    // Scheduling
-                    let identifier = "UYLLocalNotification1"
-                    let request = UNNotificationRequest(identifier: identifier,
-                                                        content: content, trigger: trigger)
-                    center.add(request, withCompletionHandler: { (error) in
-                        if let error = error {
-                            // Something went wrong
-                        }
-                    })
-                    let identifier1 = "UYLLocalNotification"
-                    content.title = "Don'tdd1 forget"
-
-                    let request1 = UNNotificationRequest(identifier: identifier1,
-                                                        content: content, trigger: trigger)
-
-                    center.add(request1, withCompletionHandler: { (error) in
-                        if let error = error {
-                            // Something went wrong
-                        }
-                    })
-                    
-                    let identifier2 = "UYLLocalNotification2"
-                    content.title = "Don'tdd 2 forget"
-
-                    let request2 = UNNotificationRequest(identifier: identifier2,
-                                                         content: content, trigger: trigger)
-                    
-                    center.add(request2, withCompletionHandler: { (error) in
-                        if let error = error {
-                            // Something went wrong
-                        }
-                    })
-                    // Swift
-                   
-                    
-                    // Notifications allowed
-                }
-            }
-
-        
-   
-//        You could try to remove all notifications if this is acceptable in your context. Like this:
-//
-//        for notification in UIApplication.sharedApplication().scheduledLocalNotifications as! [UILocalNotification] {
-//            UIApplication.sharedApplication().cancelLocalNotification(notification)
-//        }
-//
-//        UIApplication.sharedApplication().cancelAllLocalNotifications()
-//        Or as stated by Gerard Grundy for Swift 4:
-//
-//        UNUserNotificationCenter.current().removeAllPendingNotificat‌​ionRequests()
-//
-        
-//        guard let settings = UIApplication.shared.currentUserNotificationSettings else { return }
-//
-//        if settings.types == .none {
-//            let ac = UIAlertController(title: "Can't schedule", message: "Either we don't have permission to schedule notifications, or we haven't asked yet.", preferredStyle: .alert)
-//            ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//            present(ac, animated: true, completion: nil)
-//            return
-//        }
         initialiseData()
         setText()
     }
@@ -146,7 +44,7 @@ class ChangePassword: UIViewController {
         textfieldNewPassword.setCustomFont()
         textfieldConfirmPassword.setCustomFont()
         buttonConfirm.setCustomFont()
-        buttonConfirm.cornerRadius(radius: 5.0)
+        buttonConfirm.cornerRadius(radius: defaultCornerRadius)
         buttonConfirm.backgroundColor = .disableButton
         buttonConfirm.isUserInteractionEnabled = false
     }
